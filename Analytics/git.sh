@@ -1,3 +1,5 @@
+# script to push and pull from and too the main repository
+
 if [ "$1 $2" = "push only" ]; then
     cd ..
     git push upstream main
@@ -20,4 +22,11 @@ cd ..
 git add .
 git commit -m "$name"
 git push
-git push upstream main
+
+if [ "$1" = "push" ]; then
+    if [ "$2" = "" ]; then
+        git push upstream main
+    else
+        git push upstream $2
+    fi
+fi
