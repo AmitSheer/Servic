@@ -4,11 +4,13 @@
   "description": "analyze data about packages and store data in mongodb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "michael",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongodb": "^4.1.1",
     "nodemon": "^2.0.12",

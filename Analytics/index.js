@@ -5,11 +5,9 @@ const port = 3000
 
 var home = require("./home")
 var mongo = require("./mongo")
-var birds = require("./birds")
 
 app.set('view engine', 'ejs')
 
-app.use('/birds', birds)
 app.use('/', home)
 app.use('/mongo', mongo)
 
@@ -21,8 +19,8 @@ app.use(express.static('public'))
 // })
 
 app.get('/getTable', function (req, res) {
-    var data = { size: parseInt(req.query.mSize) };
-    res.render('pages/table', data)
+    //var data = { size: parseInt(req.query.mSize) };
+    //res.render('pages/table', data)
 });
 
 app.get('/getTable2', function (req, res) {

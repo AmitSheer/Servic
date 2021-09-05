@@ -2,7 +2,13 @@
 
 if [ "$1 $2" = "push only" ]; then
     cd ..
+    git fetch upstream
     git push upstream main
+    exit 1
+elif [ "$1 $3" = "push only" ]; then
+    cd ..
+    git fetch upstream
+    git push upstream $2
     exit 1
 elif [ "$1" = "pull" ]; then
     cd ..
