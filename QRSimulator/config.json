@@ -1,0 +1,10 @@
+{
+    "firebase":{
+        "url":"",
+        "port":""
+    },
+    "redis":{
+        "url":"",
+        "port":""
+    }
+}
