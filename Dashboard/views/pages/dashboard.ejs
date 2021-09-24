@@ -17,13 +17,18 @@ The above copyright notice and this permission notice shall be included in all c
     <!--ariel ws-->
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io.connect();
-      function setWs() {
+      var socket = io();
         socket.on('newdata', function (msg) {
-          var element = document.getElementById(msg.districtId);
-          element.innerText = msg.value;
+          // dan = msg.array.(element => {
+          //   if(element.districtId='dan')
+          //   return element
+          // });
+          let element = document.getElementById('dan')
+          element.getElementsByClassName("value").innerText = 100000000
+
+          // var element = document.getElementById(msg.districtId);
+          // element.innerText = msg.value;
         })
-      }
     </script>
     <!--ariel ws -->
 </head>
@@ -34,7 +39,7 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- <%- include("../partials/sidebar") %> -->
       <!-- <div class="main-panel"> -->
         <!-- <%- include("../partials/navbar") %> s -->
-           <div style="text-align: center;">Dashboard</div>
+           <div style="text-align: center;" id="blabla">Dashboard</div>
           <div class="content">
             <div class="container-fluid">
               <!-- <div class="row">
