@@ -16,19 +16,7 @@ The above copyright notice and this permission notice shall be included in all c
   <%- include("../partials/headers") %>
     <!--ariel ws-->
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-        socket.on('newdata', function (msg) {
-          // dan = msg.array.(element => {
-          //   if(element.districtId='dan')
-          //   return element
-          // });
-          let element = document.getElementById('dan')
-          element.getElementsByClassName("value").innerText = 100000000
-
-          // var element = document.getElementById(msg.districtId);
-          // element.innerText = msg.value;
-        })
+    <script src="/test.js">
     </script>
     <!--ariel ws -->
 </head>
@@ -37,8 +25,8 @@ The above copyright notice and this permission notice shall be included in all c
 
   <div class="wrapper ">
     <!-- <%- include("../partials/sidebar") %> -->
-      <!-- <div class="main-panel"> -->
-        <!-- <%- include("../partials/navbar") %> s -->
+      <div class="main-panel">
+        <!-- <%- include("../partials/navbar") %> -->
            <div style="text-align: center;" id="blabla">Dashboard</div>
           <div class="content">
             <div class="container-fluid">
@@ -62,7 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
           <%- include("../partials/footer") %>
       </div>
-  <!-- </div> -->
+  </div>
   <%- include("../partials/dashcode") %>
 </body>
 
