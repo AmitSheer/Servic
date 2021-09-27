@@ -7,7 +7,7 @@ const db = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: tru
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-    console.log('Time: ', Date.now())
+    console.log('Monogo Time: ', Date.now())
     next()
 })
 // define the home page route

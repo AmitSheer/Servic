@@ -5,11 +5,14 @@ const port = 3000
 
 var home = require("./home")
 var mongo = require("./mongo")
+var bigml = require("./bigml")
+
 
 app.set('view engine', 'ejs')
 
-app.use('/', home)
 app.use('/mongo', mongo)
+app.use('/bigml', bigml)
+app.use('/', home)
 
 app.use(express.static('public'))
 
@@ -38,6 +41,7 @@ app.get('/getTable2', function (req, res) {
 
     res.send(table)
 })
+
 
 
 // const { MongoClient } = require('mongodb');
