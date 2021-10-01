@@ -45,14 +45,34 @@ router.get('/dummy_load', function (req, res) {
     'description': "my assy ass3 ",
     'item_analysis': {
       "separator": ";",
-      "limit": 100,
-      "pruning_strategy": "most_frequent",
-      "target_frequency": 0.5
     }
   }, function (error, sourceInfo) {
     if (!error && sourceInfo) {
       console.log(sourceInfo.resource);
-      res.send(sourceInfo.resource)
+
+      source.update(sourceInfo,
+        {
+          "description": "my assy ass updated",
+          "fields": { "000001": { "optype": "items" } },
+          'item_analysis': {
+            "separator": ";",
+          }
+        }, function (error, sourceInfo) {
+          if (!error && sourceInfo) {
+            var dataset = new bigml.Dataset(connection);
+            dataset.create(sourceInfo, function (error, datasetInfo) {
+              if (!error && datasetInfo) {
+                var association = new bigml.Association(connection);
+                association.create(datasetInfo, function (error, associationInfo) {
+                  res.send(sourceInfo.resource + " <br><br>" + JSON.stringify(datasetInfo) +
+                    " <br><br>" + JSON.stringify(associationInfo))
+                });
+              }
+            });
+          }
+        })
+
+
       // var dataset = new bigml.Dataset(connection);
       // dataset.create(sourceInfo,
       //   { name: 'testDataSet' }, true,
@@ -62,14 +82,7 @@ router.get('/dummy_load', function (req, res) {
       //       console.log(datasetInfo);
       //     }
       //   });
-      // var dataset = new bigml.Dataset(connection);
-      // dataset.create(sourceInfo, function (error, datasetInfo) {
-      //   if (!error && datasetInfo) {
-      //     var association = new bigml.Association(connection);
-      //     var s = association.create(datasetInfo);
-      //     console.log(s);
-      //   }
-      // });
+
     }
   });
   //res.send("done")
@@ -83,10 +96,49 @@ router.get('/dummy_get', function (req, res) {
     if (!error && resource) {
       //console.log(resource);
       res.send(JSON.stringify(resource))
-
+      // var dataset = new bigml.Dataset(connection);
+      // dataset.create(id,
+      //   function (error, resource2) {
+      //     if (!error && resource2) {
+      //       console.log("The dataset has been completely created.")
+      //       res.send(JSON.stringify(resource2))
+      //     }
+      //   })
     }
   })
   //res.send("kek")
+});
+
+
+router.get('/association_get', function (req, res) {
+  var id = req.query.association
+  //res.send(id)
+
+  var association = new bigml.AssociationSet(connection)
+  association.create(id, { "000001": ['yoyo', 'puti'] }
+    , function (error, resource) {
+      if (!error && resource) {
+        //console.log(resource);
+        association.get(resource, function (error, set2) {
+          if (!error && set2) {
+            res.send(JSON.stringify(set2))
+          }
+        })
+        // var dataset = new bigml.Dataset(connection);
+        // dataset.create(id,
+        //   function (error, resource2) {
+        //     if (!error && resource2) {
+        //       console.log("The dataset has been completely created.")
+        //       res.send(JSON.stringify(resource2))
+        //     }
+        //   })
+      }
+    })
+  //res.send(JSON.stringify(association))
+  // for (index = 0; index < associationRules.length; index++) {
+  //   response += associationRules[index].describe() + " , ";
+  // }
+  //res.send(JSON.stringify(associationRules))
 });
 
 router.get('/dummy_csv', function (req, res) {
@@ -122,10 +174,10 @@ router.get('/dummy_csv', function (req, res) {
     //   item["item" + j] = row[j];
     //   //console.log(JSON.stringify(item) + " " + row + " " + row[j]);
     // }
-    console.log(row)
+    //console.log(row)
     data.push(item)
   }
-  console.log(JSON.stringify(data));
+  //console.log(JSON.stringify(data));
 
   // If you use "await", code must be inside an asynchronous function:
   (async () => {
