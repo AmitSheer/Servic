@@ -1,0 +1,6 @@
+price,region,items
+100,shomron,"[""bananas"",""strawberies"",""apples"",""grapes""]"
+60,shomron,"[""strawberies"",""grapes""]"
+70,shomron,"[""bananas"",""strawberies"",""apples""]"
+60,shomron,"[""bananas"",""apples"",""grapes""]"
+40,shomron,"[""bananas"",""apples""]"

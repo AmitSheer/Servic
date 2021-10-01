@@ -5,13 +5,14 @@ const port = 3000
 
 var home = require("./home")
 var mongo = require("./mongo")
-var birds = require("./birds")
+var bigml = require("./bigml")
+
 
 app.set('view engine', 'ejs')
 
-app.use('/birds', birds)
-app.use('/', home)
 app.use('/mongo', mongo)
+app.use('/bigml', bigml)
+app.use('/', home)
 
 app.use(express.static('public'))
 
@@ -21,8 +22,8 @@ app.use(express.static('public'))
 // })
 
 app.get('/getTable', function (req, res) {
-    var data = { size: parseInt(req.query.mSize) };
-    res.render('pages/table', data)
+    //var data = { size: parseInt(req.query.mSize) };
+    //res.render('pages/table', data)
 });
 
 app.get('/getTable2', function (req, res) {
@@ -40,6 +41,7 @@ app.get('/getTable2', function (req, res) {
 
     res.send(table)
 })
+
 
 
 // const { MongoClient } = require('mongodb');
