@@ -6,6 +6,7 @@ var path = require('path');
 var parse = require('csv-parse');
 var stringify = require('csv-stringify');
 var bigml = require('bigml');
+var packageGenerator = require('../QRSimulator/PackageGenerator')
 const { route } = require('./home');
 const ObjectsToCsv = require('objects-to-csv');
 
@@ -194,7 +195,19 @@ router.get('/dummy_csv', function (req, res) {
 
 
 router.get('/test', function (req, res) {
+  var str = ""
+  var packages = []
+  for (i = 0; i < 10; i++) {
+    var pack = new packageGenerator.createRandomPackage(i);
+    packages.push(pack)
 
+    if (i > 0) {
+      str += "<br>"
+    }
+    str += JSON.stringify(pack)
+    //var pack = new packageGenerator.
+  }
+  res.send(str)
 })
 // define the about route
 router.get('/about', function (req, res) {
