@@ -1,0 +1,10 @@
+td.tcm, th.tcm{
+    text-align:center; 
+    vertical-align: middle;
+}
+
+td.tcl, th.tcl{
+    text-align: left;
+    vertical-align: middle;
+}
+
