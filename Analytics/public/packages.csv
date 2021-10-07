@@ -694,3 +694,13 @@ phone;flour;banana;rose berry
 case
 computer;headphones
 keyboard;mouse;banana;rose berry
+eggs;mouse
+bread;mouse;flour;eggs;milk
+rose berry;flour;eggs;headphones;phone;milk
+avocado
+eggs;phone
+case;eggs;mouse
+milk;headphones;computer
+computer;rose berry
+milk;mouse;keyboard;banana
+case;computer;headphones

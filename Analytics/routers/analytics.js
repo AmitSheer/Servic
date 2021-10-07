@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
                 rules: li.associationData.rules,
                 items: { items: li.associationData.items }
             }
-            console.log(data.items);
+            //console.log(data.items);
             // console.log(li.associationID);
             // console.log(li.associationData)
             res.render('pages/dashboard', data)

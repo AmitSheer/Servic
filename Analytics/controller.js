@@ -17,6 +17,7 @@ module.exports = {
 var bigml = require("./routers/bigml")
 var analytics = require("./routers/analytics")
 var bigmlAnalytics = require('./routers/bigmlAnalysis')
+var redis = require('./routers/redisAdder')
 
 app.set('view engine', 'ejs')
 
@@ -29,6 +30,16 @@ app.use(express.static('public'))
 function createBigmlInterface(callback) {
     return bigmlAnalytics.getAssociation(callback)
 }
+
+var obj = {
+    serialNumber: 0,
+    text: "kek"
+}
+app.get('/test', function (req, res) {
+    redis.addPackage("out", obj)
+    obj.serialNumber++
+    res.send("sent to redis")
+})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

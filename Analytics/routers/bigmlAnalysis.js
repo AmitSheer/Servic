@@ -30,16 +30,29 @@ class bigmlAssociation {
         this.associationID = undefined
         this.associationData = undefined
         this.next = undefined
+        this.callbacks = []
+        this.onupdate = false
+    }
+
+    subscribe(callback) {
+        this.callbacks.push(callback)
     }
 
     update(callback) {
         var start = performance.now();
         var self = this;
+        this.subscribe(callback)
         generate_item_csv(self.numInstances, self.csvName, function (response, instances, numItems, itemTypes) {
             if (response == ALREADY_UP_TO_DATE) {
-                callback()
+                if (self.onupdate) {
+                    return;
+                }
+                self.#notifyAll();
+                //callback()
                 return;
             }
+            //self.callbacks.push(callback)
+            self.onupdate = true
             self.numInstances = instances;
             self.numItems = numItems;
             self.ItemTypes = itemTypes;
@@ -48,13 +61,13 @@ class bigmlAssociation {
                 self.associationID = associationID
                 // console.log("end of bigml " + (performance.now() - start));
                 getAssociationData(self.associationID, function (data) {
-                    self.#organizeData(data, self.numItems, callback)
+                    self.#organizeData(data, self.numItems)
                 })
             })
         })
     }
 
-    #organizeData(data, totalItems, callback) {
+    #organizeData(data, totalItems) {
         // var self = this
         var items = []
         var i = 0
@@ -98,7 +111,17 @@ class bigmlAssociation {
             items: items,
             rules: rules
         }
-        callback()
+        //callback()
+        this.#notifyAll();
+    }
+
+    #notifyAll() {
+        console.log("was called");
+        this.onupdate = false
+        for (let i = 0; i < this.callbacks.length; i++) {
+            this.callbacks[i]();
+        }
+        this.callbacks = []
     }
 }
 
@@ -206,6 +229,9 @@ function getAssociationData(associationID, callback) {
 }
 
 var association = new bigmlAssociation(csvName)
+association.update(function () {
+    // initialized
+})
 
 function getAssociation(callback) {
     association.update(callback);
