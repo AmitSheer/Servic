@@ -10,10 +10,15 @@ var fs = require('fs');
 const name = 'dodgeviper1221'
 const hash = '171c42c17dac6044bd998f7a9d8bfc788a86e924'
 
+const UPDATED = -3
+const ALREADY_UP_TO_DATE = -2
+const ERROR = -1
+
 var connection = new bigml.BigML(name, hash)
 
 const { performance } = require('perf_hooks');
 const { throws } = require('assert');
+const csvName = "packages.csv"
 
 class bigmlAssociation {
     constructor(csvName) {
@@ -27,10 +32,14 @@ class bigmlAssociation {
         this.next = undefined
     }
 
-    init(callback) {
+    update(callback) {
         var start = performance.now();
         var self = this;
-        generate_item_csv(self.csvName, function (instances, numItems, itemTypes) {
+        generate_item_csv(self.numInstances, self.csvName, function (response, instances, numItems, itemTypes) {
+            if (response == ALREADY_UP_TO_DATE) {
+                callback()
+                return;
+            }
             self.numInstances = instances;
             self.numItems = numItems;
             self.ItemTypes = itemTypes;
@@ -39,13 +48,13 @@ class bigmlAssociation {
                 self.associationID = associationID
                 // console.log("end of bigml " + (performance.now() - start));
                 getAssociationData(self.associationID, function (data) {
-                    self.#organizeData(data, callback)
+                    self.#organizeData(data, self.numItems, callback)
                 })
             })
         })
     }
 
-    #organizeData(data, callback) {
+    #organizeData(data, totalItems, callback) {
         // var self = this
         var items = []
         var i = 0
@@ -73,15 +82,23 @@ class bigmlAssociation {
             }
             rules.push(item)
         }
+
+        items = []
+        //console.log(data.fields['00000'].summary);
+        var ditems = data.fields['000000'].summary.items;
+        for (let i = 0; i < ditems.length; i++) {
+            const element = ditems[i];
+            items.push({
+                name: element[0],
+                presence: element[1],
+                relativePresence: element[1] / totalItems
+            })
+        }
         this.associationData = {
             items: items,
             rules: rules
         }
         callback()
-    }
-
-    #copy(prev) {
-        Object.assign(this, prev)
     }
 }
 
@@ -102,12 +119,17 @@ var add_param = function (str, add) {
     return str
 }
 
-function generate_item_csv(fileName, callback) {
+function generate_item_csv(prevLength, fileName, callback) {
     var numItemTypes = new Set();
     var numItems = 0;
     var instances = -1;
     controller.monogoRead(function (data) {
         var itemsRow = []
+        console.log(data.length + " " + prevLength);
+        if (data.length == prevLength) {
+            callback(ALREADY_UP_TO_DATE)
+            return;
+        }
         //console.log(data.length);
         for (let i = 0; i < data.length; i++) {
             var items = data[i].items;
@@ -124,8 +146,7 @@ function generate_item_csv(fileName, callback) {
             const csv = new ObjectsToCsv(itemsRow);
             // Save to file:
             await csv.toDisk('./public/' + fileName);
-            instances = data.length;
-            callback(instances, numItems, numItemTypes)
+            callback(UPDATED, data.length, numItems, numItemTypes)
         })();
         //res.send(items_only)
     })
@@ -184,7 +205,13 @@ function getAssociationData(associationID, callback) {
         })
 }
 
+var association = new bigmlAssociation(csvName)
+
+function getAssociation(callback) {
+    association.update(callback);
+    return association;
+}
 
 module.exports = {
-    bigmlAssociation: bigmlAssociation
+    getAssociation: getAssociation
 }

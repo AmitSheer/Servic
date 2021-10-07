@@ -1,5 +1,4 @@
 var express = require('express');
-const { route } = require('./home');
 var router = express.Router()
 
 var controller = require('../controller');
@@ -12,18 +11,20 @@ router.use(function timeLog(req, res, next) {
 })
 // define the home page route
 router.get('/', function (req, res) {
-    var li = controller.createBigmlInterface()
-    li.init(function (result) {
-        var data = {
-            num_records: li.numInstances,
-            products_count: li.numItems,
-            product_type_count: li.ItemTypes.size,
-            rules: li.associationData.rules,
-        }
-        console.log(li.associationID);
-        console.log(li.associationData)
-        res.render('pages/dashboard', data)
-    })
+    var li = controller.createBigmlInterface(
+        function (result) {
+            var data = {
+                num_records: li.numInstances,
+                products_count: li.numItems,
+                product_type_count: li.ItemTypes.size,
+                rules: li.associationData.rules,
+                items: { items: li.associationData.items }
+            }
+            console.log(data.items);
+            // console.log(li.associationID);
+            // console.log(li.associationData)
+            res.render('pages/dashboard', data)
+        })
 })
 // define the about route
 router.get('/about', function (req, res) {

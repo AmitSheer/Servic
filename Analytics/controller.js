@@ -3,7 +3,6 @@ const app = express()
 const port = 3000
 
 
-var home = require("./routers/home")
 var mongo = require("./routers/mongo")
 
 app.set('view engine', 'ejs')
@@ -27,8 +26,8 @@ app.use('/', analytics)
 
 app.use(express.static('public'))
 
-function createBigmlInterface() {
-    return new bigmlAnalytics.bigmlAssociation('ikek.csv')
+function createBigmlInterface(callback) {
+    return bigmlAnalytics.getAssociation(callback)
 }
 
 app.listen(port, () => {

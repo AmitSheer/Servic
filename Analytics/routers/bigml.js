@@ -230,6 +230,14 @@ router.get('/add_random/:numPackages', function (req, res) {
   })
 })
 
+const prefixN = 1000000
+function randomIndex(i) {
+  var number = i.toString()
+  var other = (Math.floor(Math.random() * 8 * prefixN) + prefixN).toString()
+  return parseInt(number + other)
+}
+
+
 router.get('/generate_association', function (req, res) {
   var fileName = 'item.csv'
   generate_item_csv(fileName, function (csv) {
@@ -303,5 +311,5 @@ function createAssociation(fileName, res) {
 
 // define the about route
 router.get('/about', function (req, res) {
-  res.send('About me, iam cool')
+  res.send("test " + randomIndex(5))
 })
