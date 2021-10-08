@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 
-var mongo = require("./routers/mongo")
+var mongo = require("./modules/mongo")
 
 app.set('view engine', 'ejs')
 
@@ -11,35 +11,35 @@ module.exports = {
     monogoRead: mongo.readAll,
     mongoInsertOne: mongo.insertOne,
     mongoInsertMany: mongo.insertMany,
-    createBigmlInterface: createBigmlInterface
+    getAssociation: getAssociation
 }
 
-var bigml = require("./routers/bigml")
 var analytics = require("./routers/analytics")
-var bigmlAnalytics = require('./routers/bigmlAnalysis')
-var redis = require('./routers/redisAdder')
+var bigmlAnalytics = require('./modules/bigmlAnalysis')
+var dbManager = require('./modules/dbManager')
 
+var testBigml = require("./modules/test/bigmlTest")
+var testRedis = require('./modules/test/redisTest')
 app.set('view engine', 'ejs')
-
-app.use('/mongo', mongo.router)
-app.use('/bigml', bigml)
+app.use('/test/bigml', testBigml)
+app.use('/test/redis', testRedis)
 app.use('/', analytics)
 
 app.use(express.static('public'))
+app.use(express.static('imported/public'))
 
-function createBigmlInterface(callback) {
+function getAssociation(callback) {
     return bigmlAnalytics.getAssociation(callback)
 }
 
-var obj = {
-    serialNumber: 0,
-    text: "kek"
+function updateAnalytics() {
+    //console.log("initiating association update")
+    getAssociation(() => {
+        //console.log("finished updating analytics")
+    })
 }
-app.get('/test', function (req, res) {
-    redis.addPackage("out", obj)
-    obj.serialNumber++
-    res.send("sent to redis")
-})
+dbManager.subscribe(updateAnalytics)
+dbManager.checkForChanges(true, 30000)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

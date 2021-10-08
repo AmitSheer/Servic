@@ -1,27 +1,9 @@
-var express = require('express')
-var router = express.Router()
-
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://michael:the12345@cluster0.12wcz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const db = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const collectionName = "packages"
 const dbName = "test"
-
-const { performance } = require('perf_hooks');
-const { emit } = require('process');
-
-// middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
-    console.log('Monogo Time: ', Date.now())
-    next()
-})
-// define the home page route
-router.get('/', function (req, res) {
-    readData(function (data) {
-        res.send(data)
-    })
-})
 
 function readData(callback) {
     //var start = performance.now()
@@ -65,7 +47,6 @@ function insertMany(dataObjArr, callback) {
 }
 
 module.exports = {
-    router: router,
     readAll: readData,
     insertOne: insertOne,
     insertMany: insertMany

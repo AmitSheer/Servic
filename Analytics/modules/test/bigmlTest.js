@@ -7,10 +7,10 @@ var associationID;
 
 module.exports = router
 
-var packageGenerator = require('./PackageGenerator')
+var packageGenerator = require('../PackageGenerator')
 const ObjectsToCsv = require('objects-to-csv');
 
-var controller = require('../controller');
+var controller = require('../../controller');
 const { json } = require('express');
 
 // Sample data - two columns, three rows:
@@ -73,42 +73,18 @@ router.get('/dummy_load', function (req, res) {
             });
           }
         })
-
-
-      // var dataset = new bigml.Dataset(connection);
-      // dataset.create(sourceInfo,
-      //   { name: 'testDataSet' }, true,
-      //   function (error, datasetInfo) {
-      //     if (!error && datasetInfo) {
-
-      //       console.log(datasetInfo);
-      //     }
-      //   });
-
     }
   });
-  //res.send("done")
 })
 
 router.get('/dummy_get', function (req, res) {
   var id = req.query.source
-  //res.send(id)
   var source = new bigml.Source(connection);
   source.get(id, function (error, resource) {
     if (!error && resource) {
-      //console.log(resource);
       res.send(JSON.stringify(resource))
-      // var dataset = new bigml.Dataset(connection);
-      // dataset.create(id,
-      //   function (error, resource2) {
-      //     if (!error && resource2) {
-      //       console.log("The dataset has been completely created.")
-      //       res.send(JSON.stringify(resource2))
-      //     }
-      //   })
     }
   })
-  //res.send("kek")
 });
 
 
@@ -126,21 +102,8 @@ router.get('/association_get', function (req, res) {
             res.send(JSON.stringify(set2))
           }
         })
-        // var dataset = new bigml.Dataset(connection);
-        // dataset.create(id,
-        //   function (error, resource2) {
-        //     if (!error && resource2) {
-        //       console.log("The dataset has been completely created.")
-        //       res.send(JSON.stringify(resource2))
-        //     }
-        //   })
       }
     })
-  //res.send(JSON.stringify(association))
-  // for (index = 0; index < associationRules.length; index++) {
-  //   response += associationRules[index].describe() + " , ";
-  // }
-  //res.send(JSON.stringify(associationRules))
 });
 
 router.get('/dummy_csv', function (req, res) {
@@ -172,14 +135,8 @@ router.get('/dummy_csv', function (req, res) {
       }
     }
     var item = { id: index, products: row };
-    // for (let j = 0; j < row.length; j++) {
-    //   item["item" + j] = row[j];
-    //   //console.log(JSON.stringify(item) + " " + row + " " + row[j]);
-    // }
-    //console.log(row)
     data.push(item)
   }
-  //console.log(JSON.stringify(data));
 
   // If you use "await", code must be inside an asynchronous function:
   (async () => {

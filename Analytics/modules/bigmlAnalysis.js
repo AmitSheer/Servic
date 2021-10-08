@@ -3,8 +3,6 @@ const ObjectsToCsv = require('objects-to-csv');
 
 var controller = require('../controller');
 var associationID;
-var fs = require('fs');
-
 // Sample data - two columns, three rows:
 
 const name = 'dodgeviper1221'
@@ -176,7 +174,7 @@ function generate_item_csv(prevLength, fileName, callback) {
 }
 
 function createAssociation(fileName, callback) {
-    console.log("Dummy : " + fileName);
+    // console.log("Dummy : " + fileName);
     var source = new bigml.Source(connection);
     var start = performance.now();
     source.create('./public/' + fileName, {

@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router()
 
 var controller = require('../controller');
-const Library = require('bigml/lib/Library');
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
@@ -11,7 +10,7 @@ router.use(function timeLog(req, res, next) {
 })
 // define the home page route
 router.get('/', function (req, res) {
-    var li = controller.createBigmlInterface(
+    var li = controller.getAssociation(
         function (result) {
             var data = {
                 num_records: li.numInstances,
