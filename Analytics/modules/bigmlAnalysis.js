@@ -25,6 +25,7 @@ class bigmlAssociation {
         this.numInstances = -1
         this.numItems = -1
         this.csvName = csvName
+        this.inialized = false
         this.associationID = undefined
         this.associationData = undefined
         this.next = undefined
@@ -49,6 +50,7 @@ class bigmlAssociation {
                 //callback()
                 return;
             }
+            console.log("initiated association update...");
             //self.callbacks.push(callback)
             self.onupdate = true
             self.numInstances = instances;
@@ -110,11 +112,12 @@ class bigmlAssociation {
             rules: rules
         }
         //callback()
+        this.inialized = true;
         this.#notifyAll();
     }
 
     #notifyAll() {
-        console.log("was called");
+        //console.log("was called");
         this.onupdate = false
         for (let i = 0; i < this.callbacks.length; i++) {
             this.callbacks[i]();
@@ -146,7 +149,7 @@ function generate_item_csv(prevLength, fileName, callback) {
     var instances = -1;
     controller.monogoRead(function (data) {
         var itemsRow = []
-        console.log(data.length + " " + prevLength);
+        //console.log(data.length + " " + prevLength);
         if (data.length == prevLength) {
             callback(ALREADY_UP_TO_DATE)
             return;
@@ -216,7 +219,7 @@ function createAssociation(fileName, callback) {
 
 function getAssociationData(associationID, callback) {
     var associationGet = new bigml.Model(connection)
-    console.log(associationID);
+    //console.log(associationID);
     associationGet.get(associationID, true,
         'only_model=true;limit=-1', function (error, association) {
             if (!error && association) {
@@ -227,15 +230,24 @@ function getAssociationData(associationID, callback) {
 }
 
 var association = new bigmlAssociation(csvName)
-association.update(function () {
-    // initialized
-})
+updateAssociation(() => { });
 
 function getAssociation(callback) {
-    association.update(callback);
+    if (association.inialized) {
+        //association.update(callback);
+        setTimeout(callback, 50);
+        return association;
+    }
+    association.subscribe(callback)
     return association;
 }
 
+function updateAssociation(callback) {
+    association.update(callback)
+    return association
+}
+
 module.exports = {
-    getAssociation: getAssociation
+    getAssociation: getAssociation,
+    updateAssociation
 }

@@ -33,10 +33,7 @@ function getAssociation(callback) {
 }
 
 function updateAnalytics() {
-    //console.log("initiating association update")
-    getAssociation(() => {
-        //console.log("finished updating analytics")
-    })
+    bigmlAnalytics.updateAssociation(() => { })
 }
 dbManager.subscribe(updateAnalytics)
 dbManager.checkForChanges(true, 30000)
