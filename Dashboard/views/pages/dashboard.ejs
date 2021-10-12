@@ -24,8 +24,8 @@ The above copyright notice and this permission notice shall be included in all c
 <body class="" onload="setWs()">
 
   <div class="wrapper ">
-    <!-- <%- include("../partials/sidebar") %> -->
-      <div class="main-panel">
+<!--     <%- include("../partials/sidebar") %> -->
+<!--      <div class="main-panel">-->
         <!-- <%- include("../partials/navbar") %> -->
            <div style="text-align: center;" id="blabla">Dashboard</div>
           <div class="content">
@@ -39,9 +39,10 @@ The above copyright notice and this permission notice shall be included in all c
                     <% }); %>
                       <!--end-->
               </div>
-              <div class="row">
-                <%- include("../partials/graphs") %>
-              </div>
+                <% cards.forEach(function(card) { %>
+                    <%- include("../partials/graphs",card) %>
+                    <%-console.log(card) %>
+                <% }); %>
               <div class="row">
                 <%- include("../partials/taskscard") %>
                   <%- include("../partials/employeeslist") %>
@@ -49,7 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
             </div>
           </div>
           <%- include("../partials/footer") %>
-      </div>
+<!--      </div>-->
   </div>
   <%- include("../partials/dashcode") %>
 </body>
