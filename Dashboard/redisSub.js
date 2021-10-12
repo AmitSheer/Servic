@@ -1,6 +1,7 @@
 var redis = require('redis');
 var redisClient = redis.createClient();
 var sub = redis.createClient()
+var keyPrefix = 'graph.'
 // redisClient.exists()
 sub.subscribe('newPackage'); 
 
@@ -11,15 +12,15 @@ sub.on("message", function (channel, message) {
     redisClient.sadd('data', message, function (err, reply) {
         console.log(reply);
     });
-    let key = 'graph.'+data.district+'.total'
+    let key = keyPrefix+data.district+'.total'
     redisClient.incr(key, function (err, reply) {
         console.log(reply);
     });
-    key = 'graph.'+data.district+'.'+data.taxType
+    key = keyPrefix+data.district+'.'+data.taxType
     redisClient.incr(key, function (err, reply) {
         console.log(reply);
     });
-    key = 'graph.'+data.district+'.'+data.size
+    key = keyPrefix+data.district+'.'+data.size
     redisClient.incr(key, function (err, reply) {
         console.log(reply);
     });
