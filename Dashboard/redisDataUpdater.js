@@ -19,7 +19,7 @@ firebaseReader.getQR().then((files)=>{
             //              .then delete from firebase
             // console.log(data);
         }).catch((err)=>{
-
+            //use qr id as delete
             console.log(err)
         }).finally(()=>{
             // qrReader.deleteFile(filename);
