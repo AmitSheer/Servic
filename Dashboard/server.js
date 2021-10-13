@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const socketIO = require('socket.io');
+const redisSub = require('./redisSub')
 var livereload = require("livereload");
 var connectLiveReload = require("connect-livereload");
 const { render } = require('ejs');
