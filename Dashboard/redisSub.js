@@ -32,22 +32,36 @@ sub.on('connect', function() {
 //delete data from hashmap
 //dec all relevant nodes
 function updateData(id,data){
-    if(data!=undefined&&data!=null){
-        redisClient.hdel('data',data.trackingNumber)
-        let key = keyPrefix+data.district+'.total'
-        redisClient.decr(key, function (err, reply) {
-            console.log(reply);
-        });
-        key = keyPrefix+data.district+'.'+data.taxType
-        redisClient.decr(key, function (err, reply) {
-            console.log(reply);
-        });
-        key = keyPrefix+data.district+'.'+data.pkgsize
-        redisClient.decr(key, function (err, reply) {
-            console.log(reply);
-        });
+    if(data==undefined||data==null){
+        redisClient.hmget('data',id,function(err,replay) {
+            if (err) {
+                console.log(err)
+                return
+            }
+            data = JSON.parse(replay)
+            update(data)
+        })
+    }else{
+        update(data)
     }
 }
+
+function update(data){
+    redisClient.hdel('data',data.trackingNumber)
+    let key = keyPrefix+data.district+'.total'
+    redisClient.decr(key, function (err, reply) {
+        console.log(reply);
+    });
+    key = keyPrefix+data.district+'.'+data.taxType
+    redisClient.decr(key, function (err, reply) {
+        console.log(reply);
+    });
+    key = keyPrefix+data.district+'.'+data.pkgsize
+    redisClient.decr(key, function (err, reply) {
+        console.log(reply);
+    });
+}
+
 
 module.exports = {
     updateData
