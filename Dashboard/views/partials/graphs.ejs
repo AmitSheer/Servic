@@ -1,54 +1,85 @@
-<div class="row">
-  <div class="col-lg-4 col-lg-6 col-lg-10 collapse <%= isShow %>" id="collapseExample<%= districtId%>">
-    <div class="card card-chart">
-      <div class="card-header card-header-success">
-        <div class="ct-chart" id="dailySalesChart"></div>
-      </div>
-      <div class="card-body">
-        <h4 class="card-title">Daily Sales</h4>
-        <p class="card-category">
-          <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today
-          sales.
-        </p>
-      </div>
-      <div class="card-footer">
-        <div class="stats">
-          <i class="material-icons">access_time</i> updated 4 minutes ago
+<div class="container collapse" id="collapse_<%= districtId%>" style="background-color: #00a5bb;">
+      <div class="row" >
+        <div class="col" >
+          <div class="card card-chart">
+            <canvas id="pieChart_<%= districtId %>" width="400" height="400"></canvas>
+            <script>
+              const data_<%= districtId %> = {
+                labels: [
+                  'vat',
+                  'shipment',
+                  'All'
+                ],
+                datasets: [{
+                  label: 'My First Dataset',
+                  data: [300, 50, 100],
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                  ],
+                  hoverOffset: 4
+                }]
+              };
+              const tax_config_<%= districtId %> = {
+                type: 'pie',
+                data: data_<%= districtId %>,
+                options: {
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: 'Tax Chart'
+                    }
+                  }
+                }
+              };
+              var pieChart = new Chart(
+                      document.getElementById('pieChart_<%= districtId %>'),
+                      tax_config_<%= districtId %>
+              );
+            </script>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-chart">
+            <canvas id="dieChart_<%= districtId %>" width="400" height="400"></canvas>
+            <script>
+              var datad_<%= districtId %> = {
+                labels: [
+                  'Big',
+                  'Medium',
+                  'Small'
+                ],
+                datasets: [{
+                  label: 'My First Dataset',
+                  data: [10, 50, 100],
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                  ],
+                  hoverOffset: 4
+                }]
+              };
+              const size_config_<%= districtId %> = {
+                type: 'pie',
+                data: datad_<%= districtId %>,
+                options: {
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: 'Tax Chart'
+                    }
+                  }
+                }
+              };
+              var dieChart_ = new Chart(
+                      document.getElementById('dieChart_<%= districtId %>'),
+                      size_config_<%= districtId %>
+              );
+            </script>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!--    <div class="col-md-4 collapse" id="collapseExample2">-->
-<!--      <div class="card card-chart">-->
-<!--        <div class="card-header card-header-warning">-->
-<!--          <div class="ct-chart" id="websiteViewsChart"></div>-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--          <h4 class="card-title">Email Subscriptions</h4>-->
-<!--          <p class="card-category">Last Campaign Performance</p>-->
-<!--        </div>-->
-<!--        <div class="card-footer">-->
-<!--          <div class="stats">-->
-<!--            <i class="material-icons">access_time</i> campaign sent 2 days ago-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="col-md-4 collapse" id="collapseExample3">-->
-<!--      <div class="card card-chart">-->
-<!--        <div class="card-header card-header-danger">-->
-<!--          <div class="ct-chart" id="completedTasksChart"></div>-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--          <h4 class="card-title">Completed Tasks</h4>-->
-<!--          <p class="card-category">Last Campaign Performance</p>-->
-<!--        </div>-->
-<!--        <div class="card-footer">-->
-<!--          <div class="stats">-->
-<!--            <i class="material-icons">access_time</i> campaign sent 2 days ago-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
