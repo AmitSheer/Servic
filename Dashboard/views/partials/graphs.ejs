@@ -1,83 +1,13 @@
 <div class="container collapse" id="collapse_<%= districtId%>" style="background-color: #00a5bb;">
       <div class="row" >
         <div class="col" >
-          <div class="card card-chart">
-            <canvas id="pieChart_<%= districtId %>" width="400" height="400"></canvas>
-            <script>
-              const data_<%= districtId %> = {
-                labels: [
-                  'vat',
-                  'shipment',
-                  'All'
-                ],
-                datasets: [{
-                  label: 'My First Dataset',
-                  data: [300, 50, 100],
-                  backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                  ],
-                  hoverOffset: 4
-                }]
-              };
-              const tax_config_<%= districtId %> = {
-                type: 'pie',
-                data: data_<%= districtId %>,
-                options: {
-                  plugins: {
-                    title: {
-                      display: true,
-                      text: 'Tax Chart'
-                    }
-                  }
-                }
-              };
-              var pieChart = new Chart(
-                      document.getElementById('pieChart_<%= districtId %>'),
-                      tax_config_<%= districtId %>
-              );
-            </script>
+          <div class="card card-chart" >
+            <canvas id="TaxChart_<%= districtId %>" width="400" height="400" ></canvas>
           </div>
         </div>
         <div class="col">
           <div class="card card-chart">
-            <canvas id="dieChart_<%= districtId %>" width="400" height="400"></canvas>
-            <script>
-              var datad_<%= districtId %> = {
-                labels: [
-                  'Big',
-                  'Medium',
-                  'Small'
-                ],
-                datasets: [{
-                  label: 'My First Dataset',
-                  data: [10, 50, 100],
-                  backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                  ],
-                  hoverOffset: 4
-                }]
-              };
-              const size_config_<%= districtId %> = {
-                type: 'pie',
-                data: datad_<%= districtId %>,
-                options: {
-                  plugins: {
-                    title: {
-                      display: true,
-                      text: 'Tax Chart'
-                    }
-                  }
-                }
-              };
-              var dieChart_ = new Chart(
-                      document.getElementById('dieChart_<%= districtId %>'),
-                      size_config_<%= districtId %>
-              );
-            </script>
+            <canvas id="SizeChart_<%= districtId %>" width="400" height="400"></canvas>
           </div>
         </div>
       </div>
