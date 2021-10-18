@@ -9,7 +9,7 @@ module.exports = {
         var trackingNumber = randomPackage.serialNumber
  
     // Converting the data into String format
-    let stringdata = "d"+JSON.stringify(randomPackage)
+    let stringdata = JSON.stringify(randomPackage)
     
     // Converting the data into base64
     var fileName ="./Image/"+trackingNumber+".png"
