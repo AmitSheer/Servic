@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const qrToImage = require('./qrReader');
-const serviceAccount = require('./cloudservicesfinalproject-firebase-adminsdk-b4n93-274bc70075.json');
+const serviceAccount = require('../cloudservicesfinalproject-firebase-adminsdk-b4n93-274bc70075.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

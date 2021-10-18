@@ -5,3 +5,8 @@
 //TODO: read from firebase the image and remove it from firebase
 //TODO: connect to firebase -> read list of images -> for each image download -> delete image from firebase 
 //      -> update ad-hoc data -> if updated data send updated data to ui -> move in redis from hot to cold 
+
+const serv = require('./server')
+serv.updateData().then(res =>{
+    console.log(res)
+})

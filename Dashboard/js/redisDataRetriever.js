@@ -1,34 +1,6 @@
 var redis = require('redis');
 var redisClient = redis.createClient();
-var sub = redis.createClient()
 var keyPrefix = 'graph.'
-sub.subscribe('newPackage');
-
-sub.on("message", function (channel, message) {
-    console.log(channel)
-    let data = JSON.parse(message);
-    redisClient.hmset('data', data.serialNumber,message, function (err, reply) {
-        console.log(reply);
-    });
-    let key = keyPrefix+data.district+'.total'
-    redisClient.incr(key, function (err, reply) {
-        console.log(reply);
-    });
-    key = keyPrefix+data.district+'.tax'
-    redisClient.hincrby(key,data.tax,1, function (err, reply) {
-        console.log(reply);
-    });
-    key = keyPrefix+data.district+'.size'
-    redisClient.hincrby(key,data.size,1, function (err, reply) {
-        console.log(reply);
-    });
-    console.log(data);
-});
-
-sub.on('connect', function() {
-    console.log('Reciver connected to Redis');
-});
-
 //delete data from hashmap
 //dec all relevant nodes
 function updateData(id,data){
@@ -87,22 +59,24 @@ async function getAllData(){
             resolve(res)
         })
     })
-    // let key = keyPrefix+data.district+'.total'
-    // redisClient.decr(key, function (err, reply) {
-    //     console.log(reply);
-    // });
-    // key = keyPrefix+data.district+'.'+data.taxType
-    // redisClient.decr(key, function (err, reply) {
-    //     console.log(reply);
-    // });
-    // key = keyPrefix+data.district+'.'+data.pkgsize
-    // redisClient.decr(key, function (err, reply) {
-    //     console.log(reply);
-    // });
+}
+
+async function getAllDistricts(){
+    return await new Promise((resolve,reject)=>{
+        redisClient.keys('graph.*.total',function(err,res){
+            let districts = []
+            for (const resKey of res) {
+                districts.push(resKey.substring(6,resKey.length-6))
+            }
+            resolve(districts)
+        })
+    })
+
 }
 
 module.exports = {
     updateData,
     getDistrictData,
-    getAllData
+    getAllData,
+    getAllDistricts
 }

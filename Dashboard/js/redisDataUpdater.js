@@ -1,4 +1,4 @@
-const redisSub = require('./redisManager');
+const redisSub = require('./redisSub');
 const firebaseReader = require('./firebaseReader')
 const qrReader = require('./qrReader')
 
