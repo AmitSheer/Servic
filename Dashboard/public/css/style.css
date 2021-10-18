@@ -1,0 +1,52 @@
+/*.table-responsive{*/
+/*    height:400px;*/
+/*    overflow:auto;*/
+/*}*/
+/*thead tr:nth-child(1) th{*/
+/*    !*background: white;*!*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*    z-index: 10;*/
+/*}*/
+
+/*body*/
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+    bottom: .5em;
+}
+
+table#pkgTable thead {
+    visibility: collapse;
+}
+
+.table-responsive{
+    border-color: #9c27b0;
+    box-shadow: 0 3px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+    margin: 3vh; overflow-x: hidden
+}
+.dataTables_scrollHead{
+
+}
+
+div.card.card-stats.btn.btn-primary{
+    background:white; border-color:black
+}
+
+.graphs{
+    margin-top: 1vh;
+    border-color: #9c27b0;
+    box-shadow: 0 3px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+    border-radius: 25px;
+}
+/*.graphs .graphs-title{*/
+/*    margin: auto;*/
+/*}*/

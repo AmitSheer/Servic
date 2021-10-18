@@ -16,8 +16,6 @@ The above copyright notice and this permission notice shall be included in all c
   <%- include("../partials/headers") %>
     <!--ariel ws-->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/test.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io.connect();
         function setWs() {
@@ -33,9 +31,7 @@ The above copyright notice and this permission notice shall be included in all c
 <body class="" onload="setWs()">
 
   <div class="wrapper ">
-<!--     <%- include("../partials/sidebar") %> -->
 <!--      <div class="main-panel">-->
-        <!-- <%- include("../partials/navbar") %> -->
            <div style="text-align: center;" id="blabla">Dashboard</div>
           <div class="content">
             <div class="container-fluid">
@@ -52,15 +48,55 @@ The above copyright notice and this permission notice shall be included in all c
                     <%- include("../partials/graphs",card) %>
                     <%-console.log(card) %>
                 <% }); %>
-              <div class="row">
-                <%- include("../partials/taskscard") %>
-                  <%- include("../partials/employeeslist") %>
-              </div>
+                <div class="row">
+                <div class="table-responsive card">
+                    <div style="margin: 1vh; ">
+                        <table  class="table table-striped" id="pkgTable" >
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="th-sm">pkg_id</th>
+                                <th class="th-sm">size</th>
+                                <th class="th-sm">items</th>
+                                <th class="th-sm">district</th>
+                                <th class="th-sm">address</th>
+                                <th class="th-sm">tax</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% all.forEach(function(data) { %>
+                                <%- include("../partials/datarow",data) %>
+                            <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                </div>
             </div>
+
           </div>
-<!--      </div>-->
+  </div>
+  <div>
+
   </div>
   <%- include("../partials/dashcode") %>
 </body>
+<script>
+    $(document).ready(function () {
+    $('#pkgTable').DataTable({
+        "scrollY": "50vh",
+        "scrollCollapse": false,
+        "paging": false,
+        // "searching":false,
+        "sClass": "class-name", "aTargets": [ 4 ]
+    });
+    $
+    $('.dataTables_length').addClass('bs-select');
+    });
+    // $(document).ready(function () {
+    //     $('#pkgTable').DataTable();
+    //     $('.dataTables_length').addClass('bs-select');
+    // });
+</script>
 
 </html>

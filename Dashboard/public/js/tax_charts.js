@@ -49,13 +49,15 @@ function updateTaxChart(district, data){
  * @param data
  */
 function addTaxChart(district, data){
-    let chartId = 'TaxChart_'+district
-    tax_data[district] = tax_data.default
-    tax_data[district].datasets[0].data = data
-    tax_config[district] =tax_config.default
-    tax_config[district].data = tax_data[district]
-    tax_charts[district] = new Chart(
-        document.getElementById(chartId),
-        tax_config[district]
-    )
+    if(tax_charts[district]==undefined) {
+        let chartId = 'TaxChart_' + district
+        tax_data[district] = tax_data.default
+        tax_data[district].datasets[0].data = data
+        tax_config[district] = tax_config.default
+        tax_config[district].data = tax_data[district]
+        tax_charts[district] = new Chart(
+            document.getElementById(chartId),
+            tax_config[district]
+        )
+    }
 }

@@ -1,8 +1,9 @@
-<div class="col-lg-3 col-md-6 col-sm-6" onclick="window.dispatchEvent(new Event('resize')); addTaxChart('<%= districtId%>',[300, 50, 100]); addSizeChart('<%= districtId%>',[300, 50, 100])">
-    <div class="card card-stats btn btn-primary" data-toggle="collapse" data-target="#collapse_<%= districtId%>"  style="background:white; border-color:black">
+<div class="col-lg-3 col-md-6 col-sm-6" onclick="window.dispatchEvent(new Event('resize')); addTaxChart('<%= districtId%>'
+        ,[300, 50, 100]); addSizeChart('<%= districtId%>',[300, 50, 100])">
+    <div class="card card-stats btn btn-primary" data-toggle="collapse" data-target="#<%= districtId%>">
       <div class="card-header card-header-warning card-header-icon">
         <p class="card-category"><%= title %></p>
-        <h3 class="card-title" id="<%= districtId %>">
+        <h3 class="card-title" >
           <span class="value"><%= value %></span>
           <small><%= unit %></small>
         </h3>
