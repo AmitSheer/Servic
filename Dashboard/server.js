@@ -14,7 +14,8 @@ liveReloadServer.server.once("connection", () => {
 });
 let data = {
   cards: [
-  ]
+  ],
+  all:[]
 }
 
 // let data = {
@@ -54,23 +55,21 @@ const io = socketIO(server);
 //------------
 io.on('connection', (socket) => {
   console.log("new connection")
-  // socket.on('newdata', (msg) => {
-  //   console.log(msg);
-  //   io.emit('newdata', msg);
-  // });
 });
 //-----------
 async function updateData(){
   socketManager.update(io).then(res=>{
     console.log(res)
     data = {
-      cards: []
+      cards: [],
+      all:[]
     }
+    data.all = res.all
     for (const byDistrictElement in res.byDistrict) {
       data.cards.push({districtId:byDistrictElement, title: byDistrictElement, value: res.byDistrict[byDistrictElement].total, unit: "חבילות", fotterIcon: "", fotterText: "נפח ממוצע", icon: "add_shopping_cart" , index:4,isShow: '' })
     }
   })
 }
-updateData(io)
+updateData()
 
 // setInterval(updateData,500)
