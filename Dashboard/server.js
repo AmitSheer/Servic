@@ -3,8 +3,8 @@ const app = express();
 const socketIO = require('socket.io');
 require('./js/redisSub')
 const socketManager = require('./js/socketUpdater')
-var livereload = require("livereload");
-var connectLiveReload = require("connect-livereload");
+const livereload = require("livereload");
+const connectLiveReload = require("connect-livereload");
 const { render } = require('ejs');
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once("connection", () => {
@@ -18,8 +18,6 @@ let data = {
   all:[],
   byDistrict: {}
 }
-
-const port=3000;
 app.use(connectLiveReload())
 
 app.use(express.static('public'))
@@ -39,8 +37,7 @@ const io = socketIO(server);
 
 //------------
 io.on('connection', (socket) => {
-  console.log(data.byDistrict)
-  io.to(socket.id).emit('init',data.byDistrict)
+  console.log('new connection')
 });
 //-----------
 async function updateData(){
@@ -57,4 +54,4 @@ async function updateData(){
 }
 updateData()
 
-setInterval(updateData,5000)
+setInterval(updateData,1000)

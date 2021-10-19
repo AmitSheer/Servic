@@ -26,7 +26,8 @@ var size_config = {
                     display: true,
                     text: 'Size Chart',
                 }
-            }
+            },
+            animation: false,
         }
     }
 };
@@ -56,7 +57,7 @@ function parseSizeData(district,data){
         parseData[1] = data['medium']
     }
     if(data['small']!=undefined){
-        parseData[2] = ['small']
+        parseData[2] = data['small']
     }
     size_data[district].datasets[0].data = parseData
 }
@@ -79,5 +80,4 @@ function addSizeChart(district, data){
             size_config[district]
         )
     }
-
 }

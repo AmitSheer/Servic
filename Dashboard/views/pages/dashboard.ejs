@@ -16,19 +16,7 @@ The above copyright notice and this permission notice shall be included in all c
   <%- include("../partials/headers") %>
     <!--ariel ws-->
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io.connect();
-        function setWs() {
-            socket.on('newdata', function (msg) {
-                // console.log(msg)
-                for (const district in msg.byDistrict) {
-                    // console.log(district)
-                    updateSizeChart(district,msg.byDistrict[district].size)
-                    updateTaxChart(district,msg.byDistrict[district])
-                }
-            })
-        }
-    </script>
+    <script src="js/socket.listener.js"></script>
     <!--ariel ws -->
 </head>
 
