@@ -6,7 +6,23 @@
 //TODO: connect to firebase -> read list of images -> for each image download -> delete image from firebase 
 //      -> update ad-hoc data -> if updated data send updated data to ui -> move in redis from hot to cold 
 
-const serv = require('./server')
-serv.updateData().then(res =>{
-    console.log(res)
+const express = require('express')
+const app = express();
+const socketIO = require('socket.io');
+const path = require('path');
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
 })
+
+app.get('/test', (req, res) => {
+
+})
+
+const server = express()
+    .use(app)
+    .listen(3001, () => console.log(`Listening Socket on http://localhost:3001`));
+
+const io = socketIO(server);
+setInterval(()=>{io.emit('newdata', '1')},1000)

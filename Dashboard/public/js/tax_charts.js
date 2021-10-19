@@ -39,10 +39,27 @@ var tax_charts = {
  * @param data the updated data
  */
 function updateTaxChart(district, data){
-    tax_charts[district].data.datasets[0].data = data
-    tax_charts[district].update()
+    if(tax_charts[district]!=undefined){
+        parseTaxData(district,data)
+        tax_charts[district].update()
+    }else{
+        addTaxChart(district,data)
+    }
 }
 
+function parseTaxData(district,data){
+    let parseData = [0,0,0]
+    if(data.large!=undefined){
+        parseData[0] = data.large
+    }
+    if(data.medium!=undefined){
+        parseData[1] = data.medium
+    }
+    if(data.small!=undefined){
+        parseData[2] = data.small
+    }
+    tax_data[district].datasets[0].data = parseData
+}
 /**
  * create a new chart for the district
  * @param district
@@ -52,7 +69,8 @@ function addTaxChart(district, data){
     if(tax_charts[district]==undefined) {
         let chartId = 'TaxChart_' + district
         tax_data[district] = tax_data.default
-        tax_data[district].datasets[0].data = data
+        parseTaxData(district,data)
+        // tax_data[district].datasets[0].data = data
         tax_config[district] = tax_config.default
         tax_config[district].data = tax_data[district]
         tax_charts[district] = new Chart(

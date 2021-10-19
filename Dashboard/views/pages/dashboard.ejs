@@ -20,15 +20,19 @@ The above copyright notice and this permission notice shall be included in all c
         var socket = io.connect();
         function setWs() {
             socket.on('newdata', function (msg) {
-                var element = document.getElementById(msg.districtId);
-                element.innerText = msg.value;
+                // console.log(msg)
+                for (const district in msg.byDistrict) {
+                    // console.log(district)
+                    updateSizeChart(district,msg.byDistrict[district].size)
+                    updateTaxChart(district,msg.byDistrict[district])
+                }
             })
         }
     </script>
     <!--ariel ws -->
 </head>
 
-<body class="" onload="setWs()">
+<body class="" onload="setWs();">
 
   <div class="wrapper ">
 <!--      <div class="main-panel">-->
@@ -46,7 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
               </div>
                 <% cards.forEach(function(card) { %>
                     <%- include("../partials/graphs",card) %>
-                    <%-console.log(card) %>
+<!--                    <%-console.log(card) %>-->
                 <% }); %>
                 <div class="row">
                 <div class="table-responsive card">

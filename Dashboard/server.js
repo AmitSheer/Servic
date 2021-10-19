@@ -15,12 +15,9 @@ liveReloadServer.server.once("connection", () => {
 let data = {
   cards: [
   ],
-  all:[]
+  all:[],
+  byDistrict: {}
 }
-
-// let data = {
-//   cards:[]
-// }
 
 const port=3000;
 app.use(connectLiveReload())
@@ -33,18 +30,6 @@ app.get('/', (req, res) => {
   res.render("pages/dashboard", data)
 })
 
-app.get('/update', (req, res) => {
-  // data.cards.push({districtId:"test", title: "צהוב קצין", value: 90000, unit: "חבילות", fotterIcon: "", fotterText: "נפח ממוצע", icon: "add_shopping_cart" })
-  // page.render("pages/dashboard", data);
-  io.emit('newdata',"oga boga")
-  res.send(page);
-})
-
-app.get('/setData/:districtId/:value', function (req, res) {
-  io.emit('newdata',{districtId:req.params.districtId,value:req.params.value})
-  res.send(req.params.value)
-})
-
 
 const server = express()
   .use(app)
@@ -54,17 +39,17 @@ const io = socketIO(server);
 
 //------------
 io.on('connection', (socket) => {
-  console.log("new connection")
+  console.log(data.byDistrict)
+  io.to(socket.id).emit('init',data.byDistrict)
 });
 //-----------
 async function updateData(){
   socketManager.update(io).then(res=>{
-    console.log(res)
-    data = {
-      cards: [],
-      all:[]
-    }
+    io.emit('newdata',res)
+    // console.log(res)
+    data = res
     data.all = res.all
+    data.cards = []
     for (const byDistrictElement in res.byDistrict) {
       data.cards.push({districtId:byDistrictElement, title: byDistrictElement, value: res.byDistrict[byDistrictElement].total, unit: "חבילות", fotterIcon: "", fotterText: "נפח ממוצע", icon: "add_shopping_cart" , index:4,isShow: '' })
     }
@@ -72,4 +57,4 @@ async function updateData(){
 }
 updateData()
 
-// setInterval(updateData,500)
+setInterval(updateData,5000)

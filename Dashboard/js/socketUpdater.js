@@ -9,7 +9,7 @@ async function update(io){
         }
     }
     await redisRetriever.getAllData().then(res=>{
-        console.log(res)
+        // console.log(res)
         for (const resKey of Object.values(res)) {
             data.all.push(JSON.parse(resKey))
         }
@@ -18,7 +18,6 @@ async function update(io){
     for (const district of districts) {
         data.byDistrict[district] = await redisRetriever.getDistrictData(district)
     }
-    io.emit('newData',data)
     return data;
 }
 
