@@ -25,11 +25,11 @@ function update(data){
         console.log(reply);
     });
     key = keyPrefix+data.district+'.size'
-    redisClient.hincrby(key,data.size,-1, function (err, reply) {
+    redisClient.decr(key,data.size,-1, function (err, reply) {
         console.log(reply);
     });
     key = keyPrefix+data.district+'.tax'
-    redisClient.hincrby(key,data.tax,-1, function (err, reply) {
+    redisClient.decr(key,data.tax,-1, function (err, reply) {
         console.log(reply);
     });
 }

@@ -6,11 +6,12 @@ var size_data = {
             'Small'
         ],
         datasets: [{
+            label: 'Package Size',
             data: [300, 50, 100],
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
+                'rgba(255,247,86,0.62)'
             ],
             hoverOffset: 4
         }]
@@ -18,9 +19,15 @@ var size_data = {
 };
 var size_config = {
     default: {
-        type: 'pie',
+        type: 'bar',
         data: size_data.default,
         options: {
+            legend: {
+                labels: {
+                    fontColor: "blue",
+                    fontSize: 18
+                }
+            },
             plugins: {
                 title: {
                     display: true,
@@ -28,6 +35,24 @@ var size_config = {
                 }
             },
             animation: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "green",
+                        fontSize: 18,
+                        stepSize: 1,
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "purple",
+                        fontSize: 14,
+                        stepSize: 1,
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
     }
 };

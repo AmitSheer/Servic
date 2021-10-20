@@ -1,4 +1,4 @@
-const redisSub = require('./redisSub');
+const dataManager = require('./dataManager');
 const firebaseReader = require('./firebaseReader')
 const qrReader = require('./qrReader')
 
@@ -12,16 +12,12 @@ firebaseReader.getQR().then((files)=>{
     console.log(files)
     files.forEach((filename)=>{
         qrReader.qrToImage(filename).then((data)=>{
-            redisSub.updateData(filename.substring(0,filename.length-4),JSON.parse(data))
-            // firebaseReader.removeFile(filename)
-            //update redis
-            //              .then delete from firebase
-            // console.log(data);
+            dataManager.updateData(filename.substring(0,filename.length-4),JSON.parse(data))
+            firebaseReader.removeFile(filename);
         }).catch((err)=>{
-            //use qr id as delete
             console.log(err)
         }).finally(()=>{
-            // qrReader.deleteFile(filename);
+            qrReader.deleteFile(filename);
         });
     });
 });
