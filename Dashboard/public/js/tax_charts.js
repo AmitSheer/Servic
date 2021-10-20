@@ -1,8 +1,8 @@
 var tax_data = {
     default:{
         labels: [
-            'vat',
-            'shipment',
+            'No Tax',
+            'Vat',
             'All'
         ],
         datasets: [{
@@ -26,7 +26,9 @@ var tax_config = {
                     display: true,
                     text: 'Tax Chart'
                 }
-            }
+            },
+            animation: false,
+
         }
     }
 };
@@ -49,14 +51,14 @@ function updateTaxChart(district, data){
 
 function parseTaxData(district,data){
     let parseData = [0,0,0]
-    if(data.large!=undefined){
-        parseData[0] = data.large
+    if(data.tax[0]!=undefined){
+        parseData[0] = data.tax[0]
     }
-    if(data.medium!=undefined){
-        parseData[1] = data.medium
+    if(data.tax[1]!=undefined){
+        parseData[1] = data.tax[1]
     }
-    if(data.small!=undefined){
-        parseData[2] = data.small
+    if(data.tax[2]!=undefined){
+        parseData[2] = data.tax[2]
     }
     tax_data[district].datasets[0].data = parseData
 }

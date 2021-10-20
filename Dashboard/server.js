@@ -2,10 +2,11 @@ const express = require('express')
 const app = express();
 const socketIO = require('socket.io');
 require('./js/redisSub')
+const dbUpdater = require('./js/redisDataUpdater')
 const socketManager = require('./js/socketUpdater')
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
-const { render } = require('ejs');
+const $ = require('jquery')
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
@@ -13,8 +14,8 @@ liveReloadServer.server.once("connection", () => {
   }, 10);
 });
 let data = {
-  cards: [
-  ],
+  cards: {}
+  ,
   all:[],
   byDistrict: {}
 }
@@ -31,27 +32,13 @@ app.get('/', (req, res) => {
 
 const server = express()
   .use(app)
-  .listen(3000, () => console.log(`Listening Socket on http://localhost:3000`));
+  .listen(3001, () => console.log(`Listening Socket on http://localhost:3000`));
 
-const io = socketIO(server);
-
-//------------
+const io = socketIO(server)
 io.on('connection', (socket) => {
-  console.log('new connection')
+  io.to(socket.id).emit('init',data)
 });
-//-----------
-async function updateData(){
-  socketManager.update(io).then(res=>{
-    io.emit('newdata',res)
-    // console.log(res)
-    data = res
-    data.all = res.all
-    data.cards = []
-    for (const byDistrictElement in res.byDistrict) {
-      data.cards.push({districtId:byDistrictElement, title: byDistrictElement, value: res.byDistrict[byDistrictElement].total, unit: "חבילות", fotterIcon: "", fotterText: "נפח ממוצע", icon: "add_shopping_cart" , index:4,isShow: '' })
-    }
-  })
-}
-updateData()
 
-setInterval(updateData,1000)
+
+setInterval(()=>{socketManager.updateData(io,data)},1000)
+setInterval(()=>dbUpdater.updateRedis(),5000)

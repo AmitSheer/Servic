@@ -1,0 +1,25 @@
+<div class="nav-tabs-navigation">
+    <div class="nav-tabs-wrapper">
+        <span class="nav-tabs-title">Districts:</span>
+        <ul class="nav nav-tabs" data-tabs="tabs">
+            <% let flag = true%>
+            <% Object.values(cards).forEach(function(card) { %>
+                <li class="nav-item">
+                    <%if(flag){
+                        flag = false%>
+                        <a class="nav-link active" href="#tab_<%= card.districtId%>" data-toggle="tab">
+                        <i class="material-icons"></i><%= card.districtId%>
+                        <div class="ripple-container"></div>
+                        <div class="ripple-container"></div></a>
+                    <%}else{%>
+                        <a class="nav-link " href="#tab_<%= card.districtId%>" data-toggle="tab">
+                        <i class="material-icons"></i><%= card.districtId%>
+                        <div class="ripple-container"></div>
+                        <div class="ripple-container"></div></a>
+                    <%}%>
+
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>

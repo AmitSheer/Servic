@@ -9,9 +9,9 @@ var size_data = {
             label: 'Package Size',
             data: [300, 50, 100],
             backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgba(255,247,86,0.62)'
+                'rgb(113,50,252)',
+                'rgb(211,54,235)',
+                '#ab47bc'
             ],
             hoverOffset: 4
         }]
@@ -19,7 +19,7 @@ var size_data = {
 };
 var size_config = {
     default: {
-        type: 'bar',
+        type: 'pie',
         data: size_data.default,
         options: {
             legend: {
@@ -35,24 +35,6 @@ var size_config = {
                 }
             },
             animation: false,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        fontColor: "green",
-                        fontSize: 18,
-                        stepSize: 1,
-                        beginAtZero: true
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        fontColor: "purple",
-                        fontSize: 14,
-                        stepSize: 1,
-                        beginAtZero: true
-                    }
-                }]
-            }
         }
     }
 };

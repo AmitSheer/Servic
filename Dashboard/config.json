@@ -1,5 +1,3 @@
 {
-    "firebase":{
-        
-    }
+    "districts":["North", "South", "Haifa", "Jerusalem", "TelAviv", "Center"]
 }

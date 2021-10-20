@@ -7,7 +7,7 @@ function updateData(id,data){
     if(data==undefined||data==null){
         redisClient.hmget('data',id,function(err,replay) {
             if (err) {
-                console.log(err)
+                // console.log(err)
                 return
             }
             data = JSON.parse(replay)
@@ -22,15 +22,15 @@ function update(data){
     redisClient.hdel('data',data.serialNumber)
     let key = keyPrefix+data.district+'.total'
     redisClient.decr(key, function (err, reply) {
-        console.log(reply);
-    });
-    key = keyPrefix+data.district+'.size'
-    redisClient.decr(key,data.size,-1, function (err, reply) {
-        console.log(reply);
-    });
-    key = keyPrefix+data.district+'.tax'
-    redisClient.decr(key,data.tax,-1, function (err, reply) {
-        console.log(reply);
+        // console.log(reply);
+        key = keyPrefix+data.district+'.size'
+        redisClient.hincrby(key,data.size,-1, function (err, reply) {
+            // console.log(reply);
+            key = keyPrefix+data.district+'.tax'
+            redisClient.hincrby(key,data.tax,-1, function (err, reply) {
+                // console.log(reply);
+            });
+        });
     });
 }
 async function getDistrictData(district){

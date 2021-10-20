@@ -16,53 +16,44 @@ The above copyright notice and this permission notice shall be included in all c
   <%- include("../partials/headers") %>
     <!--ariel ws-->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/socket.listener.js"></script>
     <!--ariel ws -->
 </head>
 
 <body class="" onload="setWs();">
 
   <div class="wrapper ">
-<!--      <div class="main-panel">-->
-           <div style="text-align: center;" id="blabla">Dashboard</div>
+           <div class="navbar navbar-expand-lg " style="justify-content: center" id="blabla">
+               <a class="navbar-header " href="#" style="text-align: center">Dashboard</a>
+           </div>
           <div class="content">
             <div class="container-fluid">
-              <!-- <div class="row">
-              </div> -->
-              <div class="row">
-                <!--start-->
-                <% cards.forEach(function(card) { %>
-                  <%- include("../partials/card",card) %>
+                <div class="row" id="total-data">
+                  <% Object.values(cards).forEach(function(card) { %>
+                        <%- include("../partials/card",card) %>
                     <% }); %>
-                      <!--end-->
-              </div>
-                <% cards.forEach(function(card) { %>
-                    <%- include("../partials/graphs",card) %>
-<!--                    <%-console.log(card) %>-->
-                <% }); %>
-                <div class="row">
-                <div class="table-responsive card">
-                    <div style="margin: 1vh; ">
-                        <table  class="table table-striped" id="pkgTable" >
-                            <thead class="thead-light">
-                            <tr>
-                                <th class="th-sm">pkg_id</th>
-                                <th class="th-sm">size</th>
-                                <th class="th-sm">items</th>
-                                <th class="th-sm">district</th>
-                                <th class="th-sm">address</th>
-                                <th class="th-sm">tax</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <% all.forEach(function(data) { %>
-                                <%- include("../partials/datarow",data) %>
-                            <% }); %>
-                            </tbody>
-                        </table>
-                    </div>
-
                 </div>
+                <% Object.values(cards).forEach(function(card) { %>
+                    <%- include("../partials/graphs",card) %>
+                <% }); %>
+                <div class="row" id="data-tables">
+
+                    <div class=" card">
+                        <div class="card-header card-header-tabs card-header-primary">
+                            <%- include("../partials/navbar",{cards:cards}) %>
+                        </div>
+
+                        <div class="card-body table-responsive">
+                            <div class="tab-content">
+                        <% let flag = true
+                        Object.values(cards).forEach(function(card) { %>
+                            <%- include("../partials/table",{card:card,flag:flag}) %>
+                        <%
+                            if(flag) flag=false
+                            });
+                        %>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -73,22 +64,5 @@ The above copyright notice and this permission notice shall be included in all c
   </div>
   <%- include("../partials/dashcode") %>
 </body>
-<script>
-    $(document).ready(function () {
-    $('#pkgTable').DataTable({
-        "scrollY": "50vh",
-        "scrollCollapse": false,
-        "paging": false,
-        // "searching":false,
-        "sClass": "class-name", "aTargets": [ 4 ]
-    });
-    $
-    $('.dataTables_length').addClass('bs-select');
-    });
-    // $(document).ready(function () {
-    //     $('#pkgTable').DataTable();
-    //     $('.dataTables_length').addClass('bs-select');
-    // });
-</script>
 
 </html>

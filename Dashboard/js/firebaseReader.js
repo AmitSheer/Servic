@@ -11,9 +11,9 @@ admin.initializeApp({
 function removeFile(filename){
     const bucket = admin.storage().bucket();
     bucket.file(filename).delete().then(function(data) {
-        const apiResponse = data[0];
+        // const apiResponse = data[0];
     }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
     });
 }
 

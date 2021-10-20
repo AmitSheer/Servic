@@ -15,7 +15,7 @@ sub.on("message", function (channel, message) {
         console.log(reply);
     });
     key = keyPrefix+data.district+'.tax'
-    redisClient.hincrby(key,data.tax,1, function (err, reply) {
+    redisClient.hincrby(key,data.taxLevel, 1, function (err, reply) {
         console.log(reply);
     });
     key = keyPrefix+data.district+'.size'
