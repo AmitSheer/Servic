@@ -28,7 +28,7 @@ function randomIndex(i) {
         redisClient.set(packageID, stringdata, function (err, reply) {
             console.log(reply);
         });
-        redisClient.publish("newPackage", "newPackage", function () {
+        redisClient.publish("newPackage", stringdata, function () {
         });
 
         qGenerator.createQR(thePackage)

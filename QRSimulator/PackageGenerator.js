@@ -122,6 +122,13 @@ function createRandomPackage(serialNumber) {
     this.size = getRandomItem(size)
     var itemNumber = sizeDep.calculateItems(this.size)
 
+
+    this.taxLevel = 0
+    if(random>75 && random<1000)
+        taxLevel = random*0.17
+    else if(random>=1000)
+        taxLevel = random*0.34    
+
     this.items = new Set()
     for (let i = 0; i < itemNumber; i++) {
         //this.itemsList.add(getRandomItem(items))
