@@ -7,7 +7,7 @@ var associationID;
 
 module.exports = router
 
-var packageGenerator = require('../PackageGenerator')
+var packageGenerator = require('../../../QRSimulator/PackageGenerator')
 const ObjectsToCsv = require('objects-to-csv');
 
 var controller = require('../../controller');
@@ -23,7 +23,7 @@ var connection = new bigml.BigML('dodgeviper1221',
 // middleware that is specific to this router
 router.use(function (req, res, next) {
   //console.log('Time: ', Date.now())
-  console.log("jopa");
+  //console.log("jopa");
   next()
 })
 // define the home page route
@@ -181,10 +181,10 @@ router.get('/add_random/:numPackages', function (req, res) {
     var pack = new packageGenerator.createRandomPackage(Math.floor(Math.random() * 100000));
     packages.push(pack)
   }
-  //res.send(JSON.stringify(packages));
-  controller.mongoInsertMany(packages, function (result) {
-    res.send(JSON.stringify(packages) + "<br>" + result)
-  })
+  res.send(JSON.stringify(packages));
+  // controller.mongoInsertMany(packages, function (result) {
+  //   res.send(JSON.stringify(packages) + "<br>" + result)
+  // })
 })
 
 const prefixN = 1000000

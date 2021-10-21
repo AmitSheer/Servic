@@ -5,7 +5,7 @@ module.exports = router
 
 var redisAdder = require('../redisAdder')
 var redisGetter = require('../redisGetter')
-var packageGenerator = require('../PackageGenerator')
+var packageGenerator = require('../../../QRSimulator/PackageGenerator')
 
 const redisKey = "out"
 

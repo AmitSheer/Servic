@@ -1,0 +1,303 @@
+{
+    "items": [
+        {
+            "name": "Sword of lightining",
+            "price": 500,
+            "price_var": 250,
+            "commonList": {
+                "max_common": 3,
+                "proba": 0.9,
+                "reduced_proba": 0.1,
+                "items": [
+                    "Light armour",
+                    "Cape",
+                    "Boots of swiftness",
+                    "Bag"
+                ]
+            }
+        },
+        {
+            "name": "Cape",
+            "price": 30,
+            "price_var": 15
+        },
+        {
+            "name": "Light armour",
+            "price": 100,
+            "price_var": 55,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.5,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Boots of swiftness",
+                    "Cape"
+                ]
+            }
+        },
+        {
+            "name": "Boots of swiftness",
+            "price": 33,
+            "price_var": 10,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.5,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Dark armour",
+                    "Light armour"
+                ]
+            }
+        },
+        {
+            "name": "Poison potion",
+            "price": 20,
+            "price_var": 10
+        },
+        {
+            "name": "Dark armour",
+            "price": 150,
+            "price_var": 77,
+            "commonList": {
+                "max_common": 2,
+                "proba": 0.9,
+                "reduced_proba": 0.4,
+                "items": [
+                    "Poison potion",
+                    "Double Edged Sword",
+                    "Book of evil"
+                ]
+            }
+        },
+        {
+            "name": "Bag",
+            "price": 100,
+            "price_var": 50,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.5,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Poison potion",
+                    "Love potion",
+                    "Health potion"
+                ]
+            }
+        },
+        {
+            "name": "Double Edged Sword",
+            "price": 1000,
+            "price_var": 666,
+            "commonList": {
+                "max_common": 2,
+                "proba": 0.8,
+                "reduced_proba": 0.2,
+                "items": [
+                    "Dark armour",
+                    "Boots of swiftness",
+                    "Cape of the dark lord"
+                ]
+            }
+        },
+        {
+            "name": "Cape of the dark lord",
+            "price": 333,
+            "price_var": 289,
+            "commonList": {
+                "max_common": 2,
+                "proba": 0.75,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Dark Armour",
+                    "Boots of invisibility",
+                    "Health potion"
+                ]
+            }
+        },
+        {
+            "name": "Boots of invisibility",
+            "price": 200,
+            "price_var": 150,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.9,
+                "reduced_proba": 0.1,
+                "items": [
+                    "Potion of invisibility"
+                ]
+            }
+        },
+        {
+            "name": "Potion of invisibility",
+            "price": 50,
+            "price_var": 25
+        },
+        {
+            "name": "Health potion",
+            "price": 20,
+            "price_var": 10
+        },
+        {
+            "name": "Potion of love",
+            "price": 700,
+            "price_var": 450,
+            "commonList": {
+                "max_common": 2,
+                "proba": 0.95,
+                "reduced_proba": 0.5,
+                "items": [
+                    "Cupid bow",
+                    "Gods embrace"
+                ]
+            }
+        },
+        {
+            "name": "Cupid bow",
+            "price": 150,
+            "price_var": 40,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.8,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Health potion"
+                ]
+            }
+        },
+        {
+            "name": "Gods embrace",
+            "price": 1000,
+            "price_var": 666
+        },
+        {
+            "name": "Mage robe",
+            "price": 125,
+            "price_var": 50,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.8,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Spellbook",
+                    "Wand",
+                    "Time dagger"
+                ]
+            }
+        },
+        {
+            "name": "SpellBook",
+            "price": 50,
+            "price_var": 30,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.5,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Wand"
+                ]
+            }
+        },
+        {
+            "name": "Time dagger",
+            "price": 250,
+            "price_var": 50,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.5,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Spellbook",
+                    "Potion of invisibility"
+                ]
+            }
+        },
+        {
+            "name": "Wand",
+            "price": 33,
+            "price_var": 11,
+            "commonList": {
+                "max_common": 1,
+                "proba": 0.5,
+                "reduced_proba": 0.0,
+                "items": [
+                    "Mage hat"
+                ]
+            }
+        },
+        {
+            "name": "Mage hat",
+            "price": 33,
+            "price_var": 11
+        }
+    ],
+    "strictly_common": [
+        {
+            "A": [
+                "Spellbook",
+                "Wand",
+                "Mage hat"
+            ],
+            "B": "Mage robe"
+        },
+        {
+            "A": [
+                "Time dagger",
+                "Potion of invisibility"
+            ],
+            "B": "Dark Armour"
+        },
+        {
+            "A": [
+                "Love potion",
+                "Health potion"
+            ],
+            "B": "Bag"
+        },
+        {
+            "A": [
+                "Potion of invisibility",
+                "Health potion"
+            ],
+            "B": "Bag"
+        },
+        {
+            "A": [
+                "Book of evil",
+                "Boots of invisibility",
+                "Dark armour",
+                "Sword of lightining"
+            ],
+            "B": "Cape of the dark lord"
+        },
+        {
+            "A": [
+                "Book of evil",
+                "Boots of invisibility",
+                "Dark armour",
+                "Double Edged Sword"
+            ],
+            "B": "Cape of the dark lord"
+        },
+        {
+            "A": [
+                "Book of evil",
+                "Boots of invisibility",
+                "Dark armour",
+                "Time dagger"
+            ],
+            "B": "Cape of the dark lord"
+        },
+        {
+            "A": [
+                "Wand"
+            ],
+            "B": "Spellbook"
+        },
+        {
+            "A": [
+                "Mage robe"
+            ],
+            "B": "Mage hat"
+        }
+    ]
+}
