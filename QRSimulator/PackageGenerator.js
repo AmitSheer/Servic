@@ -1,5 +1,6 @@
 var size = ["small", "medium", "large"]
-var items = ["phone", "case", "headphones", "computer", "mouse", "keyboard"]
+var items = ["phone", "case", "headphones", "computer", "mouse", "keyboard",
+    "rose berry", "banana", "milk", "avocado", "bread", "flour", "eggs"]
 var districts = ["North", "South", "Haifa", "Jerusalem", "TelAviv", "Center"]
 var cities = {
     "North": ['tveria', 'naaria', 'nazeret', 'tsfat', 'afula'],
@@ -19,8 +20,18 @@ var dependencies = {
     "headphones": { chance: 0.2, max: 1, items: ["computer", "phone"] },
     "computer": { chance: 0.9, max: 3, items: ["headphones", "case", "mouse", "microphone"] },
     "keyboard": { chance: 0.5, max: 1, items: ["mouse"] },
-    "mouse": { chance: 0.5, max: 1, items: ["keyboard"] }
+    "mouse": { chance: 0.5, max: 1, items: ["keyboard"] },
+    "banana": { chance: 0.5, max: 1, items: ["rose berry"] },
+    "rose berry": { chance: 0.66, max: 2, items: ["rose berry", "avocado"] },
+    "eggs": { chance: 0.6, max: 1, items: ["milk", "flour"] },
+    "flour": { chance: 0.6, max: 1, items: ["milk", "eggs"] }
 }
+
+var lastAdd = [
+    { A: ["eggs", "flour"], B: "milk" },
+    { A: ["computer", "keyboard"], B: "mouse" },
+    { A: ["coumputer", "mouse"], B: "keyboard" }
+]
 
 var sizeDep = {
     "small": { min: 1, extra: 1 },
@@ -35,7 +46,7 @@ var sizeDep = {
 }
 
 module.exports = {
-    createRandomPackage: createRandomPackage,
+    createRandomPackage: createRandomPackage
 }
 
 function getRandomItem(arr) {
@@ -65,10 +76,36 @@ function createRandomPackage(serialNumber) {
     this.size = getRandomItem(size)
     var itemNumber = sizeDep.calculateItems(this.size)
 
+
+    this.taxLevel = 0
+    if(random>75 && random<1000)
+        taxLevel = random*0.17
+    else if(random>=1000)
+        taxLevel = random*0.34    
+
     this.items = new Set()
     for (let i = 0; i < itemNumber; i++) {
         //this.itemsList.add(getRandomItem(items))
         addDependencies(this.items, getRandomItem(items))
+    }
+
+    for (let i = 0; i < lastAdd.length; i++) {
+        var A = lastAdd[i].A
+        var B = lastAdd[i].B
+        if (this.items.has(B)) {
+            continue;
+        }
+        var skip = false
+        for (let index = 0; index < A.length; index++) {
+            const element = A[index];
+            if (!this.items.has(element)) {
+                skip = true
+                break;
+            }
+        }
+        if (!skip) {
+            this.items.add(B)
+        }
     }
     this.items = Array.from(this.items)
 
@@ -76,27 +113,4 @@ function createRandomPackage(serialNumber) {
     this.address = getRandomItem(cities[this.district]) + ", " + getRandomItem(address) + " " + Math.floor(Math.random() * 100)
 }
 
-function test() {
-    // Iteration
-    // This code runs twenty times
-    // It produces each time different data
-    for (i = 0; i < 2; i++) {
 
-        var package = new createRandomPackage(i)
-
-        // לבדיקה שלנו
-        console.log(package.serialNumber); // Outputs a random name
-        console.log(package.items); // Outputs a random email
-        console.log(package.size); // Outputs the random product name generated
-        console.log(package.address); // Produces a random company name
-        console.log(package.district);
-
-        //var secondsToWait = 1000;
-        //setTimeout(packageSender(package), secondsToWait * 1000);
-    }
-}
-
-
-function packageSender(package) {
-
-}
