@@ -1,49 +1,3 @@
-
-// function createRandomPackage(serialNumber){
-//     var random = (Math.round(Math.random()*2500))
-//     var size = ["small", "medium", "large"]
-//     var items = ["phone", "case", "headphones", "computer", "mouse", "keyboard"]
-//     var districts = ["North", "South", "Haifa", "Jerusalem", "TelAviv", "Center"]
-//     var cities = {
-//         "North": ['tveria', 'naaria', 'nazeret', 'tsfat', 'afula'],
-//         "South": ['ashdod', 'dimona', 'eilat', 'arad', 'netivot'],
-//         "Haifa": ['hedera', 'heifa', 'keriyat yam', 'keriyat motzkin', 'nesher'],
-//         "Jerusalem": ['beit shemesh', 'jerusalem'],
-//         "TelAviv": ['tel aviv', 'or yehuda', 'ramat asharon', 'hulon', 'herzelia'],
-//         "Center": ['ariel', 'hod hasharon', 'elad', 'yavne', 'rehovot', 'petah tikva', 'rosh ahain']
-//     }
-    
-//     var streets = [
-//         'haziyonot', 'hanegev', 'avner', 'zaal', 'seora', 'zait', 'tamar', 'rimon', 'kalanit', 'hirus', 'lotem', 'narkis'
-//     ]
-
-//     var taxLevel = 0
-//     if(random>75 && random<1000)
-//         taxLevel = random*0.17
-//     else if(random>=1000)
-//         taxLevel = random*0.34
-// trackingNumber = serialNumber;
-// var itemNumber = (random % 3) + 1;
-// var itemsList = []
-// for (let i = 0; i < itemNumber; i++) {
-//     itemsList[i] = items[Math.floor(Math.random()) % (items.length)] 
-// }
-// var pkgsize =  size[random % 3];
-// var district = districts[random % (districts.length)];
-
-// var address = cities[district][random % cities[district].length ] + ", " + streets[random % streets.length] + " " + Math.floor(Math.random() * 100);
-
-// return {trackingNumber, itemsList, pkgsize, taxLevel, address, district}
-// }
-
-
-// module.exports = {
-//     createRandomPackage
-// };
-
-
-
-
 var size = ["small", "medium", "large"]
 var items = ["phone", "case", "headphones", "computer", "mouse", "keyboard",
     "rose berry", "banana", "milk", "avocado", "bread", "flour", "eggs"]
@@ -158,6 +112,5 @@ function createRandomPackage(serialNumber) {
     this.district = getRandomItem(districts)
     this.address = getRandomItem(cities[this.district]) + ", " + getRandomItem(address) + " " + Math.floor(Math.random() * 100)
 }
-
 
 

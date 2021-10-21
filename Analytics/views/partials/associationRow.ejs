@@ -1,0 +1,31 @@
+<script>
+    function AsPercent(number) {
+        var num = number * 100
+        document.write(parseFloat(num.toFixed(3)) + "%")
+    }
+</script>
+
+<tr>
+    <td class="tcl">
+        <% iteml.forEach(function(item){ %>
+            <%= item %><br>
+                <% }); %>
+    </td>
+    <td class="tcl">
+        <% itemr.forEach(function(item){ %>
+            <%= item %><br>
+                <% }); %>
+    </td>
+    <td class="tcm">
+        <script>AsPercent('<%-coverage%>')</script>
+    </td>
+    <td class="tcm">
+        <script>AsPercent('<%-support%>')</script>
+    </td>
+    <td class="tcm">
+        <script>AsPercent('<%-confidence%>')</script>
+    </td>
+    <td class="tcm">
+        <script>AsPercent('<%-correlation%>')</script>
+    </td>
+</tr>

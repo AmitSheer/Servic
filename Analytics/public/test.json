@@ -1,0 +1,23 @@
+{
+    "name": "Shipping Class",
+    "results": {
+        "meta": "Shipping class info",
+        "data": [
+            {
+                "length": 5.1,
+                "width": 3.5,
+                "height": 1.4,
+                "weight": 0.2,
+                "type": "A"
+            },
+            {
+                "length": 4.9,
+                "width": 3.0,
+                "height": 1.4,
+                "weight": 0.2,
+                "type": "B"
+            }
+        ]
+    },
+    "size": 5148
+}

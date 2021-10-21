@@ -1,0 +1,35 @@
+td.tcm, th.tcm{
+    text-align:center; 
+    vertical-align: middle;
+}
+
+td.tcl, th.tcl{
+    text-align: left;
+    vertical-align: middle;
+}
+
+.mtooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .mtooltip .mtooltiptext {
+    visibility: hidden;
+    width: 180px;
+    background-color: rgb(245, 194, 29);
+    color: rgb(12, 12, 12);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    top: 25px;
+    left: -5%;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .mtooltip:hover .mtooltiptext {
+    visibility: visible;
+  }

@@ -1,0 +1,65 @@
+<script>
+    var items = JSON.parse('<%-JSON.stringify(items)%>')
+    function randomColor() {
+        var letters = '0123456789ABCDEF'
+        var color = '#'
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)]
+        }
+        return color
+    }
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+    var xValues = [];
+    var yValues = [];
+    var barColors = [];
+    //var bar
+    for (var i = 0; i < items.length; i++) {
+        xValues.push(items[i].name)
+        yValues.push(items[i].presence)
+        barColors.push(randomColor())
+    }
+
+    //var yValues = [55, 49, 44, 24, 15];
+    //var barColors = ["red", "green", "blue", "orange", "brown"];
+    console.log(items)
+    new Chart("barChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Items bought"
+            }
+        }
+    });
+</script>
+
+<script>
+    new Chart("pieChart", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Items bought"
+            }
+        }
+    });
+</script>
