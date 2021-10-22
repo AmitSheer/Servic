@@ -1,0 +1,18 @@
+<div class="container collapse graphsbox" id="<%= districtId%>" >
+    <div class="row" style="    align-items: center;
+    justify-content: center;">
+        <div>
+            <h1><%= districtId%> Graphs</h1>
+        </div>
+    </div>
+      <div class="graphs" >
+<!--        <div class="col" >-->
+          <div class="card card-chart" >
+            <canvas id="TaxChart_<%= districtId %>" width="200" height="200" ></canvas>
+          </div>
+          <div class="card card-chart">
+            <canvas id="SizeChart_<%= districtId %>" width="200" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+

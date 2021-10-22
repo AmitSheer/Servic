@@ -3,7 +3,7 @@ const uri = "mongodb+srv://michael:the12345@cluster0.12wcz.mongodb.net/myFirstDa
 const db = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const collectionName = "packages"
-const dbName = "test"
+const dbName = "production"
 
 function readData(callback) {
     //var start = performance.now()
@@ -11,6 +11,7 @@ function readData(callback) {
         var dbo = db.db(dbName);
         dbo.collection(collectionName).find({}).toArray(function (err, result) {
             if (err) throw err;
+            //console.log(result);
             callback(result)
             db.close();
             //console.log("time elpassed : " + (performance.now() - start));

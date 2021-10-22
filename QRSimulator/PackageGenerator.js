@@ -1,6 +1,4 @@
 var size = ["small", "medium", "large"]
-var items = ["phone", "case", "headphones", "computer", "mouse", "keyboard",
-    "rose berry", "banana", "milk", "avocado", "bread", "flour", "eggs"]
 var districts = ["North", "South", "Haifa", "Jerusalem", "TelAviv", "Center"]
 var cities = {
     "North": ['tveria', 'naaria', 'nazeret', 'tsfat', 'afula'],
@@ -15,24 +13,6 @@ var address = [
     'haziyonot', 'hanegev', 'avner', 'zaal', 'seora', 'zait', 'tamar', 'rimon', 'kalanit', 'hirus', 'lotem', 'narkis'
 ]
 
-var dependencies = {
-    "phone": { chance: 0.8, max: 2, items: ["case", "headphones"] },
-    "headphones": { chance: 0.2, max: 1, items: ["computer", "phone"] },
-    "computer": { chance: 0.9, max: 3, items: ["headphones", "case", "mouse", "microphone"] },
-    "keyboard": { chance: 0.5, max: 1, items: ["mouse"] },
-    "mouse": { chance: 0.5, max: 1, items: ["keyboard"] },
-    "banana": { chance: 0.5, max: 1, items: ["rose berry"] },
-    "rose berry": { chance: 0.66, max: 2, items: ["rose berry", "avocado"] },
-    "eggs": { chance: 0.6, max: 1, items: ["milk", "flour"] },
-    "flour": { chance: 0.6, max: 1, items: ["milk", "eggs"] }
-}
-
-var lastAdd = [
-    { A: ["eggs", "flour"], B: "milk" },
-    { A: ["computer", "keyboard"], B: "mouse" },
-    { A: ["coumputer", "mouse"], B: "keyboard" }
-]
-
 var sizeDep = {
     "small": { min: 1, extra: 1 },
     "medium": { min: 2, extra: 2 },
@@ -45,53 +25,79 @@ var sizeDep = {
     }
 }
 
-module.exports = {
-    createRandomPackage: createRandomPackage
-}
-
-function getRandomItem(arr) {
+function getRandomElementFromArr(arr) {
     var item_index = Math.floor(Math.random() * arr.length)
     return arr[item_index]
 }
 
-function addDependencies(item_set, item) {
-    item_set.add(item)
+function addItemAndCommonItems(item_set, item) {
+    item_set.add(item.name)
 
-    var dependency = dependencies[item];
+    var dependency = item.commonList
     if (dependency != undefined) {
         var add = 0;
-        while (add < dependency.max) {
+        while (add < dependency.max_common) {
             var chance = Math.random();
-            if (chance < dependency.chance) {
+            if (chance > dependency.proba - dependency.reduced_proba * add) {
                 break;
             }
-            item_set.add(getRandomItem(dependency.items))
+            item_set.add(getRandomElementFromArr(dependency.items))
             add += 1
         }
     }
 }
 
+function calculatePrice(item_set) {
+    var price = 0;
+    for (let i = 0; i < item_set.length; i++) {
+        const item_name = item_set[i]
+        var item = undefined;
+        for (let i = 0; i < itemsData.items.length; i++) {
+            const element = itemsData.items[i];
+            if (element.name == item_name) {
+                item = element
+                break
+            }
+        }
+        if (item == undefined) {
+            // if the item doesn't exist on its own ( the item is only comming along something )
+            price += Math.random() * 100;
+            continue;
+        }
+        price += item.price + (Math.random() - 0.5) * 2 * item.price_var;
+    }
+    return Math.floor(price)
+}
+
+const fs = require('fs');
+const path = require('path');
+let rawdata = fs.readFileSync(path.resolve(__dirname, 'items.json'));
+let itemsData = JSON.parse(rawdata);
+
+// console.log(itemsData);
+
+module.exports = {
+    createRandomPackage: createRandomPackage
+}
+
 function createRandomPackage(serialNumber) {
     this.serialNumber = serialNumber;
-    this.size = getRandomItem(size)
+    this.size = getRandomElementFromArr(size)
     var itemNumber = sizeDep.calculateItems(this.size)
 
 
-    this.taxLevel = 0
-    if(random>75 && random<1000)
-        taxLevel = random*0.17
-    else if(random>=1000)
-        taxLevel = random*0.34    
+    //this.taxLevel = Math.random() * Math.random() * 1000
 
     this.items = new Set()
+    //console.log(itemsData);
     for (let i = 0; i < itemNumber; i++) {
         //this.itemsList.add(getRandomItem(items))
-        addDependencies(this.items, getRandomItem(items))
+        addItemAndCommonItems(this.items, getRandomElementFromArr(itemsData.items))
     }
 
-    for (let i = 0; i < lastAdd.length; i++) {
-        var A = lastAdd[i].A
-        var B = lastAdd[i].B
+    for (let i = 0; i < itemsData.strictly_common.length; i++) {
+        var A = itemsData.strictly_common[i].A
+        var B = itemsData.strictly_common[i].B
         if (this.items.has(B)) {
             continue;
         }
@@ -109,8 +115,11 @@ function createRandomPackage(serialNumber) {
     }
     this.items = Array.from(this.items)
 
-    this.district = getRandomItem(districts)
-    this.address = getRandomItem(cities[this.district]) + ", " + getRandomItem(address) + " " + Math.floor(Math.random() * 100)
+    var price = calculatePrice(this.items)
+    // just because 500 is to little distance with 250 and 1000 there is more variation
+    this.taxLevel = price < 250 ? "free" : price < 1000 ? "vat" : "all";
+    this.district = getRandomElementFromArr(districts)
+    this.address = getRandomElementFromArr(cities[this.district]) + ", " + getRandomElementFromArr(address) + " " + Math.floor(Math.random() * 100)
 }
 
 
