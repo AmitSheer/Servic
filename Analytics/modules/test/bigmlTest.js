@@ -82,6 +82,40 @@ router.get('/dummy_get', function (req, res) {
   var source = new bigml.Source(connection);
   source.get(id, function (error, resource) {
     if (!error && resource) {
+
+      //res.send(resource.object["associations"].items[21].name)
+      // var normal = "left , right, coverage, support, confidence, leverage <br>"
+
+      // var final = []
+      // var rules = resource.object["associations"].rules
+      // var items = resource.object.associations.items
+      // for (var i in rules) {
+      //   var line = rules[i]
+      //   var finall = {}
+      //   finall["left"] = ""
+      //   for (const key of line.lhs) {
+      //     finall["left"] += items[key].name + " "
+      //   }
+
+      //   finall["right"] = ""
+      //   for (const key of line.rhs) {
+      //     finall["right"] += items[key].name + " "
+      //   }
+
+      //   finall["coverage"] = line.lhs_cover[0]
+      //   finall["support"] = line.support[0]
+      //   finall["confidence"] = line.confidence
+      //   finall["leverage"] = line.leverage
+      //   final.push(finall)
+      // }
+
+      // for(var i = 0; i < rules; i++){
+      //   var line = rules[i]
+      // }
+
+      //res.send(resource.object["associations"].rules)
+      // res.send(final)
+      //res.send(arr.key2)
       res.send(JSON.stringify(resource))
     }
   })
