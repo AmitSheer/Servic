@@ -10,8 +10,12 @@ function updateData(id,data){
                 // console.log(err)
                 return
             }
-            data = JSON.parse(replay)
-            update(data)
+            try
+            {
+                data = JSON.parse(replay)
+                update(data)
+            }catch (e) {
+            }
         })
     }else{
         update(data)
@@ -27,7 +31,7 @@ function update(data){
         redisClient.hincrby(key,data.size,-1, function (err, reply) {
             // console.log(reply);
             key = keyPrefix+data.district+'.tax'
-            redisClient.hincrby(key,data.tax,-1, function (err, reply) {
+            redisClient.hincrby(key,data.taxLevel,-1, function (err, reply) {
                 // console.log(reply);
             });
         });
