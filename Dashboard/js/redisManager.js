@@ -23,17 +23,18 @@ function updateData(id,data){
     }
 }
 function update(data){
-    redisClient.hdel('data',data.serialNumber)
-    let key = keyPrefix+data.district+'.total'
-    redisClient.decr(key, function (err, reply) {
-        key = keyPrefix+data.district+'.size'
-        redisClient.hincrby(key,data.size,-1, function (err, reply) {
-            key = keyPrefix+data.district+'.tax'
-            redisClient.hincrby(key,data.taxLevel,-1, function (err, reply) {
-                redisClient.hmset('out', data.serialNumber, JSON.stringify(data))
+    redisClient.hdel('data',data.serialNumber,function (err,replay) {
+        let key = keyPrefix+data.district+'.total'
+        redisClient.decr(key, function (err, reply) {
+            key = keyPrefix+data.district+'.size'
+            redisClient.hincrby(key,data.size,-1, function (err, reply) {
+                key = keyPrefix+data.district+'.tax'
+                redisClient.hincrby(key,data.taxLevel,-1, function (err, reply) {
+                    redisClient.hmset('out', data.serialNumber, JSON.stringify(data))
+                });
             });
         });
-    });
+    })
 }
 async function getDistrictData(district){
     let total_data={}

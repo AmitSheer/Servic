@@ -1,10 +1,10 @@
 //https://javascript.plainenglish.io/how-to-upload-files-to-firebase-storage-in-node-js-e19b2b5e5cf9
 
 const { Storage } = require('@google-cloud/storage');
-const express = require("express");
+// const express = require("express");
 // const { createRandomPackage } = require('./PackageGenerator');
 
-const app = new express();
+// const app = new express();
 
 let sendPackageToFirebase = function (serialNumber) {
 
@@ -43,7 +43,7 @@ let sendPackageToFirebase = function (serialNumber) {
 
 
 }
-app.listen(process.env.PORT || 8088, () => { console.log('node server running'); })
+// app.listen(process.env.PORT || 8088, () => { console.log('node server running'); })
 module.exports = {
     sendPackageToFirebase
 }

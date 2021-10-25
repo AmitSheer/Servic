@@ -25,9 +25,6 @@ function randomIndex(i) {
         var thePackage = new pGenerator.createRandomPackage(packageID);
         console.log(thePackage)
         let stringdata = JSON.stringify(thePackage)
-        redisClient.set(packageID, stringdata, function (err, reply) {
-            console.log(reply);
-        });
         redisClient.publish("newPackage", stringdata, function () {
         });
 

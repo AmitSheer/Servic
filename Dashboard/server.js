@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const socketIO = require('socket.io');
-const dbUpdater = require('./js/dataSyncher')
+require('./js/dataSyncher')
 const socketManager = require('./js/socketUpdater')
 
 let data = {
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 const server = express()
   .use(app)
-  .listen(3001, () => console.log(`Listening Socket on http://localhost:3000`));
+  .listen(3001, () => console.log(`Listening Socket on http://localhost:3001`));
 
 const io = socketIO(server)
 io.on('connection', (socket) => {
