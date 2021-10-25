@@ -5,11 +5,12 @@ const Jimp = require("jimp");
 
 
 module.exports = {
+
     qrToImage: async function (imagePath) {
         const buffer = fs.readFileSync('./qrImages/' + imagePath);
         let image = await Jimp.read(buffer)
         const value = await new Promise((resolve,reject)=>{
-            qr.callback =(err,res) => err!=null ? reject(err):resolve(res)
+            qr.callback =(err,res) => err!=null ? reject(null):resolve(res)
             qr.decode(image.bitmap)
         })
         return value.result

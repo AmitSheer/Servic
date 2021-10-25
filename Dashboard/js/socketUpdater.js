@@ -1,4 +1,4 @@
-const redisRetriever = require('./dataManager')
+const redisRetriever = require('./redisManager')
 const config = require("../config.json");
 
 async function update(){
@@ -23,7 +23,7 @@ async function update(){
     return data;
 }
 
-async function updateData(io,data){
+function updateData(io,data){
     let updatedData = data
     update(io).then(async res=>{
         if(res.all.length!=0&&res.byDistrict !={}){
@@ -60,6 +60,7 @@ async function updateData(io,data){
         io.emit('newdata',updatedData)
     })
 }
+
 module.exports = {
     updateData
 }

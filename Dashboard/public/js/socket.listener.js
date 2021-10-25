@@ -14,7 +14,7 @@ socket.on('init',(data)=>{
                 columns:[
                     {
                         data: "serialNumber",
-                        title: 'Package Tracking Id'
+                        title: 'Package Id'
                     },
                     {
                         data:"size",
@@ -24,10 +24,6 @@ socket.on('init',(data)=>{
                         data:"items",
                         title: 'Items'
                     },
-                    // {
-                    //     data:"district",
-                    //     title: 'District'
-                    // },
                     {
                         data: "address",
                         title: 'Address'

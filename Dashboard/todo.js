@@ -1,1 +1,3 @@
-//todo: send to michael redis server
+// decode
+// delete encoded
+//
