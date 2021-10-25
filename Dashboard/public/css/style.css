@@ -38,10 +38,22 @@ div.card.card-stats.btn.btn-primary{
     background:white; border-color:black
 }
 .navbar{
-    background-color: #9c27b0;
-    border-color: #9c27b0;
+    /*background-color: #9c27b0;*/
+    /*border-color: #9c27b0;*/
     box-shadow: 0 3px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
+
+img{
+    max-height: 10vh;
+    max-width: 10vw;
+}
+
+.graph-header {
+    text-align: center;
+}
+.graph-header h1{
+    margin-top: 2vh;
+    }
 .graphsbox{
     border-color: #9c27b0;
     box-shadow: 0 3px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
@@ -51,6 +63,9 @@ div.card.card-stats.btn.btn-primary{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.graphs div{
+    margin: 1vw;
 }
 .counter-box{
     color: #9c27b0;

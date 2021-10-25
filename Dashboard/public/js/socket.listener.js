@@ -2,7 +2,8 @@ var socket = io.connect();
 var tables = {}
 var dataset ={}
 socket.on('init',(data)=>{
-    for (const byDistrictElement of Object.entries(data.byDistrict)) {
+    for (const byDistrictElement of Object.entries(data.cards)) {
+
         dataset[byDistrictElement[0]] = byDistrictElement[1].all
         if ( $.fn.dataTable.isDataTable( '#pkgTable_'+byDistrictElement[0]) ) {
             updateTable(byDistrictElement,byDistrictElement[1])
@@ -13,7 +14,7 @@ socket.on('init',(data)=>{
                 columns:[
                     {
                         data: "serialNumber",
-                        title: 'Package Tracking Id'
+                        title: 'Package Id'
                     },
                     {
                         data:"size",
@@ -22,10 +23,6 @@ socket.on('init',(data)=>{
                     {
                         data:"items",
                         title: 'Items'
-                    },
-                    {
-                        data:"district",
-                        title: 'District'
                     },
                     {
                         data: "address",
@@ -46,17 +43,28 @@ socket.on('init',(data)=>{
     }
 
 })
-socket.on('newdata', function (msg) {
-    for (const district in msg.byDistrict) {
-        updateTable(district,msg)
-    }
-})
+function setWs(){
+
+    socket.on('newdata', function (msg) {
+        for (const district in msg.cards) {
+            updateTable(district,msg)
+        }
+    })
+}
+
 
 function updateTable(district,data){
-    document.querySelector('.pkg-total [district="'+district+'"] .value').innerHTML = data.byDistrict[district].total
-    updateSizeChart(district, data.byDistrict[district].size)
-    updateTaxChart(district, data.byDistrict[district])
-    dataset[district] = data.byDistrict[district].all
+    if(data.byDistrict[district]!=undefined){
+        document.querySelector('.pkg-total [district="'+district+'"] .value').innerHTML = data.byDistrict[district]['total'] ? data.byDistrict[district].total : 0
+        updateSizeChart(district, data.byDistrict[district].size)
+        updateTaxChart(district, data.byDistrict[district])
+        dataset[district] = data.byDistrict[district].all
+    }else{
+        document.querySelector('.pkg-total [district="'+district+'"] .value').innerHTML = 0
+        updateSizeChart(district, {size:{}})
+        updateTaxChart(district, {tax:{}})
+        dataset[district] = {}
+    }
     if(tables[district]!=undefined){
         tables[district].clear()
         tables[district].rows.add(dataset[district])

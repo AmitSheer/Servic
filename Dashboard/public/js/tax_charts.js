@@ -51,14 +51,14 @@ function updateTaxChart(district, data){
 
 function parseTaxData(district,data){
     let parseData = [0,0,0]
-    if(data.tax[0]!=undefined){
-        parseData[0] = data.tax[0]
+    if(data.tax['free']!=undefined){
+        parseData[0] = data.tax['free']
     }
-    if(data.tax[1]!=undefined){
-        parseData[1] = data.tax[1]
+    if(data.tax['vat']!=undefined){
+        parseData[1] = data.tax['vat']
     }
-    if(data.tax[2]!=undefined){
-        parseData[2] = data.tax[2]
+    if(data.tax['all']!=undefined){
+        parseData[2] = data.tax['all']
     }
     tax_data[district].datasets[0].data = parseData
 }

@@ -14,17 +14,19 @@ The above copyright notice and this permission notice shall be included in all c
 
 <head>
   <%- include("../partials/headers") %>
-    <!--ariel ws-->
-    <script src="/socket.io/socket.io.js"></script>
-    <!--ariel ws -->
+
 </head>
 
 <body class="" onload="setWs();">
 
   <div class="wrapper ">
-           <div class="navbar navbar-expand-lg " style="justify-content: center" id="blabla">
-               <a class="navbar-header " href="#" style="text-align: center">Dashboard</a>
-           </div>
+           <nav class="navbar navbar-expand-lg bg-primary" style="justify-content: center; " id="blabla">
+                    <a href="#" style="font-weight: bold; color: white">
+                        <h1>Dashboard</h1>
+                    </a>
+           </nav>
+
+
           <div class="content">
             <div class="container-fluid">
                 <div class="row" id="total-data">
@@ -42,7 +44,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <%- include("../partials/navbar",{cards:cards}) %>
                         </div>
 
-                        <div class="card-body table-responsive">
+                        <div class="card-body ">
                             <div class="tab-content">
                         <% let flag = true
                         Object.values(cards).forEach(function(card) { %>

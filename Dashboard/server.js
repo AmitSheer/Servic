@@ -1,25 +1,16 @@
 const express = require('express')
 const app = express();
 const socketIO = require('socket.io');
-require('./js/redisSub')
-const dbUpdater = require('./js/redisDataUpdater')
+const dbUpdater = require('./js/dataSyncher')
 const socketManager = require('./js/socketUpdater')
-const livereload = require("livereload");
-const connectLiveReload = require("connect-livereload");
-const $ = require('jquery')
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 10);
-});
+
 let data = {
   cards: {}
   ,
   all:[],
   byDistrict: {}
 }
-app.use(connectLiveReload())
+// app.use(connectLiveReload())
 
 app.use(express.static('public'))
 
@@ -36,9 +27,8 @@ const server = express()
 
 const io = socketIO(server)
 io.on('connection', (socket) => {
-  io.to(socket.id).emit('init',data)
+  io.emit('init',data)
 });
 
 
 setInterval(()=>{socketManager.updateData(io,data)},1000)
-setInterval(()=>dbUpdater.updateRedis(),5000)
