@@ -46,7 +46,7 @@ class bigmlAssociation {
                 if (self.onupdate) {
                     return;
                 }
-                self.#notifyAll();
+                self.notifyAll();
                 //callback()
                 return;
             }
@@ -61,13 +61,13 @@ class bigmlAssociation {
                 self.associationID = associationID
                 // console.log("end of bigml " + (performance.now() - start));
                 getAssociationData(self.associationID, function (data) {
-                    self.#organizeData(data, self.numItems)
+                    self.organizeData(data, self.numItems)
                 })
             })
         })
     }
 
-    #organizeData(data, totalItems) {
+    organizeData(data, totalItems) {
         // var self = this
         var items = []
         var i = 0
@@ -113,10 +113,10 @@ class bigmlAssociation {
         }
         //callback()
         this.inialized = true;
-        this.#notifyAll();
+        this.notifyAll();
     }
 
-    #notifyAll() {
+    notifyAll() {
         //console.log("was called");
         this.onupdate = false
         for (let i = 0; i < this.callbacks.length; i++) {

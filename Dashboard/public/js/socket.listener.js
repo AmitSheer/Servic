@@ -58,7 +58,7 @@ function updateTable(district,data){
         document.querySelector('.pkg-total [district="'+district+'"] .value').innerHTML = data.byDistrict[district]['total'] ? data.byDistrict[district].total : 0
         updateSizeChart(district, data.byDistrict[district].size)
         updateTaxChart(district, data.byDistrict[district])
-        dataset[district] = data.byDistrict[district].all
+        dataset[district] = data.byDistrict[district].all ? data.byDistrict[district].all : {}
     }else{
         document.querySelector('.pkg-total [district="'+district+'"] .value').innerHTML = 0
         updateSizeChart(district, {size:{}})
