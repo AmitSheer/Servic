@@ -30,7 +30,10 @@ while(i<400){
 }
 
 async function deliver(){
-    if(packagesOnTheWay.length==0) return
+    if(packagesOnTheWay.length==0) {
+        console.log("Simulation finished")
+        process.exit()
+    }
     let random = (Math.round(Math.random()*2500))
     if(random%5 == 0 && packagesOnTheWay.length>0){
         let temp = Math.floor(Math.random() * packagesOnTheWay.length);
