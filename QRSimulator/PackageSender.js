@@ -15,10 +15,8 @@ function randomIndex(i) {
   return parseInt(number + other)
 }
 
-
-var i = 1;
-while(i<400){
-    var packageID = randomIndex(i+100)
+async function send(id){
+    var packageID = randomIndex(id+100)
     var thePackage = new pGenerator.createRandomPackage(packageID);
     console.log(thePackage)
     let stringdata = JSON.stringify(thePackage)
@@ -26,13 +24,18 @@ while(i<400){
     });
     qGenerator.createQR(thePackage)
     packagesOnTheWay[packagesOnTheWay.length] = packageID
+}
+
+var i = 1;
+while(i<200){
+    send(i)
     i++;
 }
 
 async function deliver(){
     if(packagesOnTheWay.length==0) {
         console.log("Simulation finished")
-        process.exit()
+        return
     }
     let random = (Math.round(Math.random()*2500))
     if(random%5 == 0 && packagesOnTheWay.length>0){
@@ -44,5 +47,9 @@ async function deliver(){
         console.log("send "+tempi+", curr "+i)
     }
 }
-setInterval(deliver,500)
+setInterval(deliver,50)
+setInterval(()=>{
+    i++
+    if(Math.random()>0.8) send(i)
+},50)
 console.log('done')
