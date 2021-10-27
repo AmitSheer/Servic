@@ -34,7 +34,6 @@ while(i<200){
 
 async function deliver(){
     if(packagesOnTheWay.length==0) {
-        console.log("Simulation finished")
         return
     }
     let random = (Math.round(Math.random()*2500))
